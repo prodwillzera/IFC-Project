@@ -19,15 +19,51 @@
 .table {
     text-decoration: none;
     color: black;
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease; 
 }
+
+.table:hover{
+    background-color: rgb(255, 255, 255);
+}
+
 .graph {
     text-decoration: none;
-    color: black;
+    color: rgb(41, 37, 37);
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
 }
+
+.graph:hover{
+    background-color: rgb(255,255,255);
+}
+
 .graph1 {
     text-decoration: none;
     color: black;
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
 }
+
+.graph1:hover{
+    background-color: rgb(255,255,255);
+}
+
 ul {
     justify-content: center;
     align-items: center;
