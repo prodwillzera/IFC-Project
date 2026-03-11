@@ -124,6 +124,7 @@ button {
     font-weight: normal;
     font: inherit;        
     color: inherit;
+    text-align: center;
 }
 
 body{
@@ -132,4 +133,8 @@ body{
     min-height: 100vh;
     background-attachment: fixed;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.ano-anterior{
+    text-align: center;
 }
