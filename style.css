@@ -90,7 +90,7 @@ th,tr {
     color: #333;
 }
 tr:hover {
-    background-color: lightgray;
+    background-color: rgb(255, 255, 255);
 } /* Efeito de destaque */
     
     /* Input invisível para simular tabela editável */
