@@ -15,6 +15,7 @@
 }
 .list {
     list-style-type: none;
+    font-size: clamp(16px, 4vw, 20px);
 }
 .table {
     text-decoration: none;
@@ -30,6 +31,54 @@
 
 .table:hover{
     background-color: rgb(255, 255, 255);
+}
+
+.contact{
+    text-decoration: none;
+    color: rgb(41, 37, 37);
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
+}
+
+.contact:hover{
+    background-color: rgb(255,255,255);
+}
+
+.FAQ{
+    text-decoration: none;
+    color: rgb(41, 37, 37);
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
+}
+
+.FAQ:hover{
+    background-color: rgb(255,255,255);
+}
+
+.about_system{
+    text-decoration: none;
+    color: rgb(41, 37, 37);
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
+}
+
+.about_system:hover{
+    background-color: rgb(255,255,255);
 }
 
 .graph {
@@ -74,7 +123,9 @@ ul {
 li {
     margin-right: 30px;
 }
-table {
+.page1 table,
+.page2 table,
+.page3 table {
     width: 100%;
     border-collapse: collapse; /* Bordas unidas */
     margin: 20px 0;
@@ -91,17 +142,16 @@ th,tr {
 }
 tr:hover {
     background-color: rgb(255, 255, 255);
-} /* Efeito de destaque */
-    
-    /* Input invisível para simular tabela editável */
-    .input-cell {
-        width: 100%;
-        border: none;
-        outline: none;
-        background: transparent;
-        padding: 0;
-        font-size: 14px;
-    }
+}
+
+.input-cell {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    font-size: 14px;
+}
 
 button {
     background-color: transparent;
@@ -137,4 +187,8 @@ body{
 
 .ano-anterior{
     text-align: center;
+}
+
+.title{
+    font-size: clamp(20px, 4vw, 36px);
 }

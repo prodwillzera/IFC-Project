@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="style.css">
     <title>Recepção IFC - Campus Fraiburgo</title>
 </head>
-    <body>
+    <body class="page1">
         <div class="navbar">
             <header>
                 <h1 class="title">Sistema integrado de recepção do IFC</h1>
             </header>
+            
             <nav>
                 <ul class="list">
                     <li><a class="table" href="#">Tabela de recepção</a></li>
@@ -19,8 +20,11 @@
                 </ul>
             </nav>
         </div>
+
         <main>
+
             <h2 class="subtitle">Tabela de Recepção</h2>
+
             <table style="width:100%">
                 <tr>
                     <th class="day">Data</th>
@@ -31,33 +35,23 @@
                     <th class="score">Avaliação</th>
                     <th></th>
                 </tr>
+
                 <tr>
-                    <p>
-                        <td>
-                            <input type="text" class="input-cell" value="06/03/2026">
-                        </td>
-                        <td>
-                            <input type="text" class="input-cell" value="João">
-                        </td>
-                        <td>
-                            <input type="text" class="input-cell" value="SISAE">
-                        </td>
-                        <td>
-                            <input type="text" class="input-cell" value="Ex:13:00">
-                        </td>
-                        <td>
-                            <input type="text" class="input-cell" value="Ex:19:00">
-                        </td>
-                        <td>
-                            <input type="text" class="input-cell" value="Ex:1 à 5">
-                        </td>
-                        <td>
-                            <button class="save">Salvar</button></td>
-                    </p>
+                    <td><input type="text" class="input-cell input-date" placeholder="DD/MM/YYYY" maxlength="10"></td>
+                    <td><input type="text" class="input-cell input-name" placeholder="Nome/Empresa"></td>
+                    <td><input type="text" class="input-cell input-reason" placeholder="Motivo"></td>
+                    <td><input type="text" class="input-cell input-time" placeholder="HH:MM" maxlength="5"></td>
+                    <td><input type="text" class="input-cell input-time" placeholder="HH:MM" maxlength="5"></td>
+                    <td><input type="text" class="input-cell input-score" placeholder="1-5" maxlength="1" inputmode="numeric"></td>
+                    <td><button class="save">Salvar</button></td>
                 </tr>
+
             </table>
+
         </main>
+
         <p class="teste">Protótipo não funcional, apenas visual...</p>
 
+        <script src="js/script.js"></script>
     </body>
 </html>
