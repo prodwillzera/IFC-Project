@@ -1,0 +1,195 @@
+.navbar{
+    position: relative;
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    background-position: left 50%;
+    padding-left: 36px;
+    font-size: 20px;
+    letter-spacing: -0.2px;
+    font-weight: 600;
+    min-height: 58px;
+    padding-top: 19px;
+    line-height: 20px;
+    text-decoration: none;
+    text-align: center;
+}
+.list {
+    list-style-type: none;
+    font-size: clamp(16px, 4vw, 20px);
+}
+.table {
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease; 
+}
+
+.table:hover{
+    background-color: rgb(255, 255, 255);
+}
+
+.contact{
+    text-decoration: none;
+    color: rgb(41, 37, 37);
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
+}
+
+.contact:hover{
+    background-color: rgb(255,255,255);
+}
+
+.FAQ{
+    text-decoration: none;
+    color: rgb(41, 37, 37);
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
+}
+
+.FAQ:hover{
+    background-color: rgb(255,255,255);
+}
+
+.about_system{
+    text-decoration: none;
+    color: rgb(41, 37, 37);
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
+}
+
+.about_system:hover{
+    background-color: rgb(255,255,255);
+}
+
+.graph {
+    text-decoration: none;
+    color: rgb(41, 37, 37);
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
+}
+
+.graph:hover{
+    background-color: rgb(255,255,255);
+}
+
+.graph1 {
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
+}
+
+.graph1:hover{
+    background-color: rgb(255,255,255);
+}
+
+ul {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 0;
+    list-style-type: none;
+}
+li {
+    margin-right: 30px;
+}
+.page1 table,
+.page2 table,
+.page3 table {
+    width: 100%;
+    border-collapse: collapse; /* Bordas unidas */
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+th, td {
+    border: 1px solid #ddd; /* Borda cinza clara */
+    padding: 12px;
+    text-align: left;
+}
+th,tr {
+    background-color: white;
+    color: #333;
+}
+tr:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+.input-cell {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    font-size: 14px;
+}
+
+button {
+    background-color: transparent;
+    border: none;                  
+    padding: 0;                    
+    margin: 0;                                      
+    font: inherit;                 
+    color: inherit;                
+    cursor: pointer;               
+}
+
+.teste {
+    padding-top: 200px; /* Ajuste o valor do padding como necessário */
+    
+    border-radius: 5px; /* Bordas arredondadas para melhorar a aparência */
+}
+
+.ano-posterior{
+    text-decoration: none;
+    font-weight: normal;
+    font: inherit;        
+    color: inherit;
+    text-align: center;
+}
+
+body{
+    background: linear-gradient(rgb(192, 255, 192),white);
+    margin: 0;
+    min-height: 100vh;
+    background-attachment: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ano-anterior{
+    text-align: center;
+}
+
+.title{
+    font-size: clamp(20px, 4vw, 36px);
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Recepção IFC - Campus Fraiburgo</title>
+</head>
+    <body class="page1">
+        <div class="navbar">
+            <header>
+                <h1 class="title">Sistema integrado de recepção do IFC</h1>
+            </header>
+            <nav>
+                <ul class="list">
+                    <li><a class="table" href="#">Tabela de recepção</a></li>
+                    <li><a class="graph" href="page2.html">Gráfico geral</a></li>
+                    <li><a class="graph1" href="page3.html">Gráfico dos Setores</a></li>
+                </ul>
+            </nav>
+        </div>
+        <main>
+
+            <h2 class="subtitle">Tabela de Recepção</h2>
+
+            <table style="width:100%">
+                <tr>
+                    <th class="day">Data</th>
+                    <th class="name">Nome/Empresa</th>
+                    <th class="why">Motivo</th>
+                    <th class="entry">Entrada</th>
+                    <th class="exit">Saída</th>
+                    <th class="score">Avaliação</th>
+                    <th></th>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="text" class="input-cell input-date" placeholder="DD/MM/YYYY" maxlength="10">
+                    </td>
+                    <td>
+                        <input type="text" class="input-cell input-name" placeholder="Nome/Empresa">
+                    </td>
+                    <td>
+                        <input type="text" class="input-cell input-reason" placeholder="Motivo">
+                    </td>
+                    <td>
+                        <input type="text" class="input-cell input-time" placeholder="HH:MM" maxlength="5">
+                    </td>
+                    <td>
+                        <input type="text" class="input-cell input-time" placeholder="HH:MM" maxlength="5">
+                    </td>
+                    <td>
+                        <input type="text" class="input-cell input-score" placeholder="1-5" maxlength="1" inputmode="numeric">
+                    </td>
+                    <td>
+                        <button class="save">Salvar</button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </main>
+
+        <p class="teste">Protótipo não funcional, apenas visual...</p>
+
+        <script src="js/script.js"></script>
+    </body>
+</html>
