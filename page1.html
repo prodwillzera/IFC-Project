@@ -30,6 +30,7 @@
                     <th class="day">Data</th>
                     <th class="name">Nome/Empresa</th>
                     <th class="why">Motivo</th>
+                    <th class="sector">Setor</th>
                     <th class="entry">Entrada</th>
                     <th class="exit">Saída</th>
                     <th class="score">Avaliação</th>
@@ -37,13 +38,14 @@
                 </tr>
 
                 <tr>
-                    <td><input type="text" class="input-cell input-date" placeholder="DD/MM/YYYY" maxlength="10"></td>
-                    <td><input type="text" class="input-cell input-name" placeholder="Nome/Empresa"></td>
-                    <td><input type="text" class="input-cell input-reason" placeholder="Motivo"></td>
-                    <td><input type="text" class="input-cell input-time" placeholder="HH:MM" maxlength="5"></td>
-                    <td><input type="text" class="input-cell input-time" placeholder="HH:MM" maxlength="5"></td>
-                    <td><input type="text" class="input-cell input-score" placeholder="1-5" maxlength="1" inputmode="numeric"></td>
-                    <td><button class="save">Salvar</button></td>
+                    <td><input id="dia" type="text" class="input-cell input-date" placeholder="DD/MM/YYYY" maxlength="10"></td>
+                    <td><input id="pessoa" type="text" class="input-cell input-name" placeholder="Nome/Empresa"></td>
+                    <td><input id="motivo" type="text" class="input-cell input-reason" placeholder="Motivo"></td>
+                    <td><input id="setor" type="text" class="input-cell input-reason" placeholder="Setor"></td>
+                    <td><input id="entrada" type="text" class="input-cell input-time" placeholder="HH:MM" maxlength="5"></td>
+                    <td><input id="saida" type="text" class="input-cell input-time" placeholder="HH:MM" maxlength="5"></td>
+                    <td><input id="avaliacao" type="text" class="input-cell input-score" placeholder="1-5" maxlength="1" inputmode="numeric"></td>
+                    <td><button id="save" class="save">Salvar</button></td>
                 </tr>
 
             </table>
