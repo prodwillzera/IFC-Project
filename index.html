@@ -8,25 +8,28 @@
 </head>
     <body class="login_page">
 
-        <header class="navbar">
+        <header>
+
             <h1 class="title">Sistema Integrado de Recepção do IFC</h1>
-            <nav>
+
+            <nav class="navbar">
                 <ul class="nav-list">
                     <li><a href="#" class="nav-link-contact">Contato</a></li>
                     <li><a href="#" class="nav-link-FAQ">FAQ</a></li>
                     <li><a href="#" class="nav-link-about_system">Sobre o Sistema</a></li>
                 </ul>
             </nav>
+
         </header>
 
-        <main class="login_area">
-            <table class="login_table">
-                <tr>
-                    <td><input id="username" type="text" class="input-cell input-user" placeholder="Nome de Usuário" maxlength="50"></td>
-                    <td><input id="password" type="password" class="input-cell input-password" placeholder="Senha do Usuário" maxlength="50" minlength="8"></td>
-                    <td><button class="login_button" onclick="window.location.href='page1.html'">Entrar</button></td>
-                </tr>
-            </table>
-        </main>
+        
+        <form>
+
+            <input type="text" placeholder="Login" id="user">
+            <input type="password" placeholder="Senha" id="password">
+            <input type="submit" onclick="logar(); return false">
+
+        </form>
+        <script src="js/script.js"></script>
     </body>
 </html>

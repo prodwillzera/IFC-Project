@@ -9,47 +9,47 @@
     <body class="page1">
         <div class="navbar">
             <header>
-                <h1 class="title">Sistema integrado de recepção do IFC</h1>
+                <h3 class="title">Sistema integrado de recepção do IFC</h1>
+                <nav>
+                    <ul class="list">
+                        <li><a class="table" href="#">Tabela de recepção</a></li>
+                        <li><a class="graph" href="page2.html">Gráfico geral</a></li>
+                        <li><a class="graph1" href="page3.html">Gráfico dos Setores</a></li>
+                    </ul>
+                </nav>
             </header>
-            
-            <nav>
-                <ul class="list">
-                    <li><a class="table" href="#">Tabela de recepção</a></li>
-                    <li><a class="graph" href="page2.html">Gráfico geral</a></li>
-                    <li><a class="graph1" href="page3.html">Gráfico dos Setores</a></li>
-                </ul>
-            </nav>
         </div>
 
         <main>
-
             <h2 class="subtitle">Tabela de Recepção</h2>
-
             <table style="width:100%">
-                <tr>
-                    <th class="day">Data</th>
-                    <th class="name">Nome/Empresa</th>
-                    <th class="why">Motivo</th>
-                    <th class="sector">Setor</th>
-                    <th class="entry">Entrada</th>
-                    <th class="exit">Saída</th>
-                    <th class="score">Avaliação</th>
-                    <th></th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th class="day">Data</th>
+                        <th class="name">Nome/Empresa</th>
+                        <th class="id-card">CPF</th>
+                        <th class="why">Motivo</th>
+                        <th class="sector">Setor</th>
+                        <th class="entry">Entrada</th>
+                        <th class="exit">Saída</th>
+                        <th class="score">Avaliação</th>
+                    </tr>
+                </thead>
 
-                <tr>
-                    <td><input id="dia" type="text" class="input-cell input-date" placeholder="DD/MM/YYYY" maxlength="10"></td>
-                    <td><input id="pessoa" type="text" class="input-cell input-name" placeholder="Nome/Empresa"></td>
-                    <td><input id="motivo" type="text" class="input-cell input-reason" placeholder="Motivo"></td>
-                    <td><input id="setor" type="text" class="input-cell input-reason" placeholder="Setor"></td>
-                    <td><input id="entrada" type="text" class="input-cell input-time" placeholder="HH:MM" maxlength="5"></td>
-                    <td><input id="saida" type="text" class="input-cell input-time" placeholder="HH:MM" maxlength="5"></td>
-                    <td><input id="avaliacao" type="text" class="input-cell input-score" placeholder="1-5" maxlength="1" inputmode="numeric"></td>
-                    <td><button id="save" class="save">Salvar</button></td>
-                </tr>
-
+                <tbody>                
+                    <tr>
+                        <td><input id="input-day" type="text" class="input-cell" placeholder="DD/MM/YYYY" maxlength="10"></td>
+                        <td><input id="input-name" type="text" class="input-cell" placeholder="Nome/Empresa"></td>
+                        <td><input id="input-id" type="text" class="input-cell" placeholder="123.456.789-00" maxlength="14"></td>
+                        <td><input id="input-why" type="text" class="input-cell" placeholder="Motivo"></td>
+                        <td><input id="input-sector" type="text" class="input-cell" placeholder="Setor"></td>
+                        <td><input id="input-entry" type="text" class="input-cell" placeholder="HH:MM" maxlength="5"></td>
+                        <td><input id="input-exit" type="text" class="input-cell" placeholder="HH:MM" maxlength="5"></td>
+                        <td><input id="input-score" type="text" class="input-cell" placeholder="1-5" maxlength="1" inputmode="numeric"></td>
+                    </tr>
+                </tbody>
             </table>
-
+            <input type="submit" id="submitbtn">
         </main>
 
         <p class="teste">Protótipo não funcional, apenas visual...</p>
