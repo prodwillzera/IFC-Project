@@ -192,3 +192,34 @@ body{
 .title{
     font-size: clamp(20px, 4vw, 36px);
 }
+
+.nav-link-contact,.nav-link-FAQ,.nav-link-about_system{
+    text-decoration: none;
+    color: rgb(41, 37, 37);
+    display: inline-block;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5cm;
+    padding: 5px 10px;
+
+    background-color: transparent;
+    transition: background-color 0.8s ease;
+}
+
+.nav-link-contact:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+.nav-link-FAQ:hover{
+    background-color: rgb(255, 255, 255);
+}
+
+.nav-link-about_system:hover{
+    background-color: rgb(255, 255, 255);
+}
+
+.login_table{
+    width: 100%;
+    border-collapse: collapse; /* Bordas unidas */
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
