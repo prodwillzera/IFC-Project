@@ -49,6 +49,26 @@ inputID.addEventListener('input', function(){
     inputID.value = id_value
 })
 
+inputEntry.addEventListener('input', function(){
+    let valor = inputEntry.value.replace(/\D/g, '')
+    
+    if(valor.length > 2){
+        valor = valor.slice(0,2) + ':' + valor.slice(2);
+    }
+
+    inputEntry.value = valor
+})
+inputExit.addEventListener('input', function(){
+    let valor = inputExit.value.replace(/\D/g, '')
+    
+    if(valor.length > 2){
+        valor = valor.slice(0,2) + ':' + valor.slice(2);
+    }
+
+    inputExit.value = valor
+})
+
+
 btn.addEventListener("click", function(event){
     event.preventDefault()
 
@@ -60,6 +80,7 @@ btn.addEventListener("click", function(event){
     const entry = inputEntry.value;
     const exit = inputExit.value;
     const score = Number(inputScore.value);
+
 
     console.log(day,name,ID,why,sector,entry,exit,score);
     console.table([day,name,ID,why,sector,entry,exit,score]);
@@ -148,8 +169,43 @@ btn.addEventListener("click", function(event){
 
     if (!TestCPF(cpfNumbers)) {
         console.error('CPF inválido!');
-        return;
+        return
     }
+
+
+    //Entrada e saida TESTE
+    
+    const entry_validate = validateHour(entry)
+    const exit_validate = validateHour(exit)
+
+    if(!entry_validate || !exit_validate){
+        return
+    }
+    
+    function validateHour(time){
+        if(time.length !== 5){
+            console.error('Digite o formato correto. (HH:MM)')
+            return null
+        }
+
+        const regexTime = /^([01]\d|2[0-3]):([0-5]\d)$/
+        if(!regexTime.test(time)){
+            console.error('Formato inválido.')
+            return null
+        }
+
+        const parts = time.split(':')
+        const hour = Number(parts[0])
+        const minute = Number(parts[1])
+
+        if(isNaN(hour) || isNaN(minute)){
+            console.error('Digite números válidos!')
+            return null
+        }
+
+        return {hour, minute}
+    }
+
 
     //SCORE TESTE
     if(isNaN(score)){
