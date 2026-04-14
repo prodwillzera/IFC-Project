@@ -2,9 +2,18 @@ function logar(){
 
     var login_user = document.getElementById('user').value;
     var password = document.getElementById('password').value;
+    var rememberPass = document.getElementById('rememberPass').checked;
 
     if(login_user == "admin" && password == "admin"){
-        alert('Login realizado!');
+        if(rememberPass){
+            localStorage.setItem("user",login_user);
+            localStorage.setItem("password",password);
+            alert('Login realizado e salvo!');
+        }else{
+            localStorage.removeItem("user",login_user);
+            localStorage.removeItem("password",password);
+            alert('Login realizado!');
+        }
         location.href = "page1.html";
     }else{
         alert('Usuario ou senha incorretos.');

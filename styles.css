@@ -15,6 +15,22 @@ body {
     background: linear-gradient(rgb(192, 255, 192),white,lightgreen);
 }
 
+ul {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 0;
+    list-style-type: none;
+}
+li {
+    margin-right: 30px;
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+}
+
 .container{
     width: 420px;
     background-color: transparent;
@@ -51,7 +67,7 @@ body {
     font-size: 15px;
     background-color: white;
     border-radius: 5px;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.25s ease;
 }
 
 .submit-button input:hover{
@@ -59,10 +75,27 @@ body {
     cursor: pointer;
 }
 
-li{
-    list-style-type: none;
+.navbar{ /*só Deus sabe, eu nao lembro mas é isso*/
+    position: relative;
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    background-position: left 50%;
+    padding-left: 36px;
+    font-size: 20px;
+    letter-spacing: -0.2px;
+    font-weight: 600;
+    min-height: 58px;
+    padding-top: 19px;
+    line-height: 20px;
+    text-decoration: none;
+    text-align: center;
 }
 
-a{
+.nav-link-contact,.nav-link-FAQ,.nav-link-about_system{
     text-decoration: none;
+    color: rgb(65, 65, 65);
+    transition: color 0.25s ease;
 }
+.nav-link-contact:hover {color: rgb(0, 0, 0);}
+.nav-link-FAQ:hover{color: rgb(0, 0, 0);}
+.nav-link-about_system:hover{color: rgb(0, 0, 0);}
