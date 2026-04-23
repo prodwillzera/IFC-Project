@@ -231,4 +231,17 @@ btn.addEventListener("click", function(event){
     console.log('Score válido:', score)
 
     alert('Recepção cadastrada com sucesso!')
+    // nao consigo fazer isso funcionar, vou me matar
+    const dadosParaSalvar = {
+        data: day,
+        nome: name,
+        cpf: ID,
+        motivo: why,
+        setor: sector,
+        entrada: entry,
+        saida: exit,
+        score: score
+    };
+    localStorage.setItem('cadastroRecepcao', JSON.stringify(dadosParaSalvar));
+
 })
