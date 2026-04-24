@@ -1,26 +1,3 @@
-function logar(){
-
-    var login_user = document.getElementById('user').value;
-    var password = document.getElementById('password').value;
-    var rememberPass = document.getElementById('rememberPass').checked;
-
-    if(login_user == "admin" && password == "admin"){
-        if(rememberPass){
-            localStorage.setItem("user",login_user);
-            localStorage.setItem("password",password);
-            alert('Login realizado e salvo!');
-        }else{
-            localStorage.removeItem("user",login_user);
-            localStorage.removeItem("password",password);
-            alert('Login realizado!');
-        }
-        location.href = "page1.html";
-    }else{
-        alert('Usuario ou senha incorretos.');
-    }
-
-}
-
 const inputDay = document.querySelector('#input-day')
 const inputName = document.querySelector('#input-name')
 const inputID = document.querySelector('#input-id')
@@ -245,3 +222,13 @@ btn.addEventListener("click", function(event){
     localStorage.setItem('cadastroRecepcao', JSON.stringify(dadosParaSalvar));
 
 })
+
+/* 
+import { aplicarMascaras } from './modules/masks.js';
+import { iniciarFormulario } from './modules/form.js';
+
+aplicarMascaras();
+iniciarFormulario();
+ */
+
+// no html por: <script type="module" src="assets/js/main.js"></script> 
