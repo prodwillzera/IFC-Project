@@ -1,8 +1,38 @@
-import './auth.js';
-import './form.js';
+import { logar } from './modules/auth.js'; // garante que o caminho está correto
+import { iniciarFormulario } from './modules/form.js';
+import { applyMask } from './modules/mask.js';
+import { validateData, validateHour, validateID } from './modules/validation.js';
+import { saveData } from './modules/storage.js';
+
+const btn = document.querySelector('input[type="submit"]');
+
+btn?.addEventListener('click', (e) => {
+    e.preventDefault(); // previne o reload do form
+    logar();           // chama a função importada
+});
+
+iniciarFormulario();
+
+applyMask();
+
+// exemplo de teste rápido
+const teste = {
+    nome: "João",
+    cpf: "123.456.789-00",
+    data: "05/05/2026",
+    motivo: "Teste",
+    setor: "TI",
+    entrada: "09:00",
+    saida: "18:00",
+    score: 10
+};
+
+saveData(teste); // salva no localStorage
+console.log(JSON.parse(localStorage.getItem('cadastroRecepcao')));
+/* import './form.js';
 import './mask.js';
 import './storage.js';
-import './validation.js';
+import './validation.js'; */
 /* const inputDay = document.querySelector('#input-day')
 const inputName = document.querySelector('#input-name')
 const inputID = document.querySelector('#input-id')

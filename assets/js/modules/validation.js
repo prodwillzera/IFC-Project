@@ -1,17 +1,22 @@
-export function validateData (day) {
-    const regex = /^\d{2}\/\d{2\/\d{4}$/;
-    
+export function validateData(day) {
+    const regex = /^\d{2}\/\d{2}\/\d{4}$/; // DD/MM/YYYY
+
     if (!regex.test(day)) return false;
 
     const [d, m, y] = day.split('/').map(Number);
 
-    const dayMonth = [31, (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0 ? 29 : 28,31,30,31,30,31,31,30,31,30,31];
+    const dayMonth = [
+        31,
+        (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0 ? 29 : 28,
+        31,30,31,30,31,31,30,31,30,31
+    ];
 
-    return m >= 1 && m <= 12 && d <= dayMonth[m-1];
+    return m >= 1 && m <= 12 && d >= 1 && d <= dayMonth[m-1];
 }
 
 export function validateID (cpf) {
-    cpf = cpf.replace(/\D/g, '');
+    if(!cpf) return false;
+    cpf = cpf.replace(/\D/g,'');
     
     if (cpf.length !== 11 || cpf === "00000000000") return false;
 
