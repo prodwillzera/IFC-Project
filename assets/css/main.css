@@ -7,7 +7,10 @@
 
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around; /*o between é meio trash*/
+    align-items: center;
+    /* justify-content: center; */
     align-items: center;
     min-height: 100vh;
     background-size: cover;
