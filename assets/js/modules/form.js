@@ -1,11 +1,7 @@
-import {validateData, validateID, validateHour} from './validation.js';
-
-
-/* 
-import { validarData, validarCPF, validarHora } from './validation.js';
+import { validateData, validateID, validateHour } from './validation.js';
 import { salvarDados } from './storage.js';
 
-export function iniciarFormulario() {
+export function iniciarFormulario () {
     const btn = document.querySelector('#submitbtn');
 
     btn?.addEventListener('click', (e) => {
@@ -22,12 +18,12 @@ export function iniciarFormulario() {
             score: Number(document.querySelector('#input-score').value)
         };
 
-        if (!validarData(dados.data)) return console.error('Data inválida');
-        if (!validarCPF(dados.cpf)) return console.error('CPF inválido');
-        if (!validarHora(dados.entrada) || !validarHora(dados.saida)) return console.error('Hora inválida');
+        if( !validateData(dados.data) ) return console.error ('Data inválida');
+        if( !validateID(dados.cpf) ) return console.error ('CPF inválido');
+        if( !validateHour(dados.entrada) || !validateHour(dados.saida) ) return console.error ('Hora inválida');
 
         salvarDados(dados);
 
-        alert('Cadastrado com sucesso!');
-    });
-} */
+        alert('Cadastro com sucesso!');
+    })
+}

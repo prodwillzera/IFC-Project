@@ -10,5 +10,5 @@ export function logar () {
         : (localStorage.removeItem("user", user), localStorage.removeItem("password", pass))
 
     alert('Login realizado!');
-    window.location.href = "page1.html";    
+    window.location.href = "pages/page1.html";    
 }

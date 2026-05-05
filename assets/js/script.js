@@ -1,4 +1,9 @@
-const inputDay = document.querySelector('#input-day')
+import './auth.js';
+import './form.js';
+import './mask.js';
+import './storage.js';
+import './validation.js';
+/* const inputDay = document.querySelector('#input-day')
 const inputName = document.querySelector('#input-name')
 const inputID = document.querySelector('#input-id')
 const inputWhy = document.querySelector('#input-why')
@@ -231,4 +236,4 @@ aplicarMascaras();
 iniciarFormulario();
  */
 
-// no html por: <script type="module" src="assets/js/main.js"></script> 
+// no html por: <script type="module" src="assets/js/main.js"></script>  */
