@@ -1,0 +1,25 @@
+{
+  "name": "ifc-project",
+  "version": "1.0.0",
+  "description": "Sistema de Recepção e Avaliação de Atendimento",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/backend/server.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prodwillzera/IFC-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/prodwillzera/IFC-Project/issues"
+  },
+  "homepage": "https://github.com/prodwillzera/IFC-Project#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
