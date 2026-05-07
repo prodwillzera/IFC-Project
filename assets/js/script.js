@@ -1,21 +1,21 @@
-import { logar } from './modules/auth.js'; // garante que o caminho está correto
-import { iniciarFormulario } from './modules/form.js';
+/* import { logar } from './modules/auth.js'; // garante que o caminho está correto */
+import { startForm } from './modules/form.js';
 import { applyMask } from './modules/mask.js';
 import { validateData, validateHour, validateID } from './modules/validation.js';
 import { saveData } from './modules/storage.js';
 
-const btn = document.querySelector('input[type="submit"]');
+/* const btn = document.querySelector('input[type="submit"]');
 
 btn?.addEventListener('click', (e) => {
     e.preventDefault(); // previne o reload do form
     logar();           // chama a função importada
-});
+}); */
 
-iniciarFormulario();
+startForm();
 
 applyMask();
 
-// exemplo de teste rápido
+/* // exemplo de teste rápido
 const teste = {
     nome: "João",
     cpf: "123.456.789-00",
@@ -25,10 +25,15 @@ const teste = {
     entrada: "09:00",
     saida: "18:00",
     score: 10
-};
+}; */
 
-saveData(teste); // salva no localStorage
-console.log(JSON.parse(localStorage.getItem('cadastroRecepcao')));
+/* saveData(dados); */
+
+
+/* saveData(teste); // salva no localStorage
+console.log(JSON.parse(localStorage.getItem('cadastroRecepcao'))); */
+
+
 /* import './form.js';
 import './mask.js';
 import './storage.js';

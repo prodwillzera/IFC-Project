@@ -1,7 +1,7 @@
-/* import { validateData, validateID, validateHour } from './validation.js';
+import { validateData, validateID, validateHour } from './validation.js';
 import { saveData } from './storage.js';
 
-export function iniciarFormulario () {
+export function startForm () {
     const btn = document.querySelector('#submitbtn');
 
     btn?.addEventListener('click', (e) => {
@@ -23,18 +23,19 @@ export function iniciarFormulario () {
         if( !validateHour(dados.entrada) || !validateHour(dados.saida) ) return console.error ('Hora inválida');
 
         saveData(dados);
+        /* console.table(dados) */
 
         alert('Cadastro com sucesso!');
     })
-} */
+}
 
-export function iniciarFormulario() {
+/* export function startForm() {
     const btn = document.querySelector('#submitbtn');
 
     btn?.addEventListener('click', (e) => {
         e.preventDefault();
 
-        const dados = {
+        const data = {
             data: document.querySelector('#input-day').value,
             nome: document.querySelector('#input-name').value,
             cpf: document.querySelector('#input-id').value,
@@ -46,19 +47,19 @@ export function iniciarFormulario() {
         };
 
         // validações
-        if (!validateData(dados.data)) return alert('Data inválida!');
-        if (!validateID(dados.cpf)) return alert('CPF inválido!');
-        if (!validateHour(dados.entrada) || !validateHour(dados.saida)) return alert('Hora inválida!');
+        if (!validateData(data.data)) return alert('Data inválida!');
+        if (!validateID(data.cpf)) return alert('CPF inválido!');
+        if (!validateHour(data.entrada) || !validateHour(data.saida)) return alert('Hora inválida!');
 
         // pegar os cadastros já existentes do localStorage
-        let lista = JSON.parse(localStorage.getItem('cadastroRecepcao')) || [];
-        lista.push(dados);
+        let list = JSON.parse(localStorage.getItem('cadastroRecepcao')) || [];
+        list.push(data);
 
         // atualizar o localStorage
-        localStorage.setItem('cadastroRecepcao', JSON.stringify(lista, null, 2));
+        localStorage.setItem('cadastroRecepcao', JSON.stringify(list));
 
         // gerar o arquivo JSON para download
-        const blob = new Blob([JSON.stringify(lista, null, 2)], { type: "application/json" });
+        const blob = new Blob([JSON.stringify(list, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
@@ -67,4 +68,4 @@ export function iniciarFormulario() {
 
         alert('Cadastro válido! JSON atualizado.');
     });
-}
+} */
