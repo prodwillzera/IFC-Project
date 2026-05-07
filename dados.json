@@ -1,0 +1,8 @@
+[
+  {"mes": "set-11", "RACI": 1170, "SISAE": 460, "Cantina": 400, "ASSISTENCIA-SOCIAL": 1, "Biblioteca": 200, "Suporte-Tecnico": 150, "Professor": 204, "Partiu-IFC": 600},
+  {"mes": "out-11", "RACI": 660, "SISAE": 1120, "Cantina": 200, "ASSISTENCIA-SOCIAL": 2, "Biblioteca": 300, "Suporte-Tecnico": 500, "Professor": 210, "Partiu-IFC": 30},
+  {"mes": "nov-11", "RACI": 1, "SISAE": 200, "Cantina": 150, "ASSISTENCIA-SOCIAL": 204, "Biblioteca": 600, "Suporte-Tecnico": 140, "Professor": 20, "Partiu-IFC": 0},
+  {"mes": "dez-11", "RACI": 1030, "SISAE": 540, "Cantina": 450, "ASSISTENCIA-SOCIAL": 3, "Biblioteca": 600, "Suporte-Tecnico": 140, "Professor": 20, "Partiu-IFC": 0},
+  {"mes": "jan-12", "RACI": 130, "SISAE": 600, "Cantina": 140, "ASSISTENCIA-SOCIAL": 20, "Biblioteca": 0, "Suporte-Tecnico": 540, "Professor": 450, "Partiu-IFC": 3},
+  {"mes": "fev-12", "RACI": 10, "SISAE": 540, "Cantina": 140, "ASSISTENCIA-SOCIAL": 20, "Biblioteca": 0, "Suporte-Tecnico": 450, "Professor": 3, "Partiu-IFC": 600}
+]
