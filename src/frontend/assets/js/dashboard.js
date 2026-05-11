@@ -1,3 +1,13 @@
+import {
+    validateData,
+    validateID,
+    validateHour
+} from './modules/validation.js';
+
+import { applyMask } from './modules/mask.js';
+
+applyMask();
+
 const 
     inputDay = document.getElementById("input-day"),
     inputName = document.getElementById("input-name"),
@@ -25,9 +35,20 @@ button.addEventListener("click", async (event) => {
 
     console.table(dataInputs);
 
+    const isValid = 
+        validateData(dataInputs.dia) &&
+        validateID(dataInputs.cpf) &&
+        validateHour(dataInputs.entrada) &&
+        validateHour(dataInputs.saida);
+
+        if(!isValid) {
+            alert("Dados inválidos");
+            return;
+        } 
+
     const response = await fetch("/salvar", {
         method: "POST",
-        headers:{
+        headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(dataInputs)
@@ -45,4 +66,5 @@ button.addEventListener("click", async (event) => {
     inputEntry.value = "";
     inputExit.value = "";
     inputScore.value = "";
+
 });

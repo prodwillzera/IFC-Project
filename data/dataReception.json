@@ -25,5 +25,25 @@
     "entrada": "09:58",
     "saida": "09:59",
     "avaliacao": "5"
+  },
+  {
+    "dia": "11/11/2008",
+    "nome": "william",
+    "cpf": "113.010.389-70",
+    "motivo": "Visita",
+    "setor": "SISAE",
+    "entrada": "09:58",
+    "saida": "09:59",
+    "avaliacao": "4"
+  },
+  {
+    "dia": "11/11/1111",
+    "nome": "will",
+    "cpf": "111.111.111-11",
+    "motivo": "Visita",
+    "setor": "TI",
+    "entrada": "11:11",
+    "saida": "11:11",
+    "avaliacao": "4"
   }
 ]

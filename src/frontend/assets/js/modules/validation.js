@@ -18,7 +18,7 @@ export function validateID (cpf) {
     if(!cpf) return false;
     cpf = cpf.replace(/\D/g,'');
     
-    if (cpf.length !== 11 || cpf === "00000000000") return false;
+    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
 
     let soma = 0;
     for (let i = 0; i < 9; i++) soma += parseInt (cpf[i]) * (10 - i);
