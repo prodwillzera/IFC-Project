@@ -8,27 +8,95 @@ app.use(express.json());
 app.use(express.static("src/frontend"));
 
 const filePath = path.join(__dirname, "data", "dataReception.json");
+const graphPath = path.join(__dirname, "data", "data.json");
 
 app.post("/salvar", (req, res) => {
-    const newData = req.body;
+    try {
 
-    let data = [];
+        const newData = req.body;
 
-    if(fs.existsSync(filePath)) {
-        const content = fs.readFileSync(filePath, "utf8");
+        let data = [];
 
-        if(content) {
-            data = JSON.parse(content);
+        if(fs.existsSync(filePath)) {
+            const content = fs.readFileSync(filePath, "utf8");
+
+            if(content) {
+                data = JSON.parse(content);
+            }
         }
+
+        data.push(newData);
+
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+
+
+        let graphData = [];
+
+        if (fs.existsSync(graphPath)) {
+            const content = fs.readFileSync(graphPath, "utf8");
+
+            if (content) {
+                graphData = JSON.parse(content);
+            }
+        }
+
+        const parts = newData.dia.split("/");
+        const day = parts[0];
+        const month = parts[1];
+
+        const months = [
+            "jan", "fev", "mar", "abr",
+            "mai", "jun", "jul", "ago",
+            "set", "out", "nov", "dez"
+        ];
+
+        const monthName = months[parseInt(month) - 1];
+
+        const monthFormatted = monthName;
+
+        const existingMonth = graphData.find(
+            item => item.mes === monthFormatted
+        );
+
+        if(existingMonth) {
+
+            existingMonth[newData.setor] =
+                Number(newData.avaliacao);
+
+        } else {
+
+            const graphObject = {
+                mes: monthFormatted,
+                [newData.setor]: Number(newData.avaliacao)
+            };
+
+            graphData.push(graphObject);
+        }
+
+        fs.writeFileSync(graphPath,JSON.stringify(graphData, null, 2));
+
+        res.json({
+            message: "Salvo com sucesso"
+        });
+
+    } catch(error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            error: error.message
+        });
     }
+    
+});
 
-    data.push(newData);
+app.get("/grafico", (req, res) => {
 
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    const content = fs.readFileSync(graphPath, "utf8");
 
-    res.json({
-        message: "Salvo com sucesso"
-    });
+    const data = JSON.parse(content);
+
+    res.json(data);
 });
 
 app.listen(3000, () => {
