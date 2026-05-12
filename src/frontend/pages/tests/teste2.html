@@ -11,7 +11,7 @@
         async function drawChart() {
             try {
                 // --- 1. Carregar JSON externo ---
-                const response = await fetch('data/data.json'); // caminho correto para subpasta 'data'
+                const response = await fetch('/grafico'); // caminho correto para subpasta 'data'
                 if (!response.ok) throw new Error("Não foi possível carregar o JSON.");
                 const jsonData = await response.json();
 
@@ -20,7 +20,16 @@
                 data.addColumn('string', 'Mês');
 
                 // Colunas dos colaboradores
-                const nomes = Object.keys(jsonData[0]).filter(k => k !== 'mes');
+                const nomes = [
+                    ...new Set(
+                        jsonData.flatMap(
+                            item =>
+                                Object.keys(item).filter(
+                                    key => key !== 'mes'
+                                )
+                        )
+                    )
+                ];
                 nomes.forEach(nome => data.addColumn('number', nome));
 
                 // Coluna da média
