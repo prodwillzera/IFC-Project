@@ -38,7 +38,8 @@
                 // Preencher linhas e calcular média
                 jsonData.forEach(row => {
                     const valores = nomes.map(nome => row[nome]);
-                    const media = valores.reduce((a, b) => a + b, 0) / valores.length;
+                    const valoresValidos = valores.filter(v => typeof v === 'number');
+                    const media = valoresValidos.reduce((a, b) => a + b, 0) / valoresValidos.length;
                     data.addRow([row.mes, ...valores, media]);
                 });
 
