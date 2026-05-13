@@ -1,16 +1,32 @@
 [
   {
+    "mes": "nov",
+    "SISAE": 4,
+    "TI": 4.5
+  },
+  {
+    "mes": "set",
+    "TI": 5
+  },
+  {
     "mes": "mai",
-    "SISAE": 5,
-    "TI": 3,
-    "Cantina": 2,
-    "Financeiro": 1
+    "SISAE": 3.7,
+    "TI": 3.8,
+    "Cantina": 3
+  },
+  {
+    "mes": "ago",
+    "Almoxarifado": 2
   },
   {
     "mes": "jun",
-    "TI": 3,
+    "TI": 3.8,
     "SISAE": 5,
     "Cantina": 1,
     "Financeiro": 1
+  },
+  {
+    "mes": "fev",
+    "TI": 5
   }
 ]

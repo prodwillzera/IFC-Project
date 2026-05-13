@@ -1,32 +1,5 @@
 [
   {
-    "nome": "will",
-    "cpf": "123"
-  },
-  {
-    "nome": "will",
-    "cpf": "123123123123"
-  },
-  {
-    "dia": "11/09/2001",
-    "nome": "will",
-    "cpf": "12312312311",
-    "motivo": "cucucu",
-    "entrada": "12:59",
-    "saida": "09:59",
-    "avaliacao": "4"
-  },
-  {
-    "dia": "01/01/1945",
-    "nome": "biruta gordo",
-    "cpf": "67676767677",
-    "motivo": "67",
-    "setor": "67",
-    "entrada": "09:58",
-    "saida": "09:59",
-    "avaliacao": "5"
-  },
-  {
     "dia": "11/11/2008",
     "nome": "william",
     "cpf": "113.010.389-70",
@@ -222,6 +195,86 @@
     "cpf": "113.010.389-70",
     "motivo": "Visita",
     "setor": "Financeiro",
+    "entrada": "09:58",
+    "saida": "09:59",
+    "avaliacao": "1"
+  },
+  {
+    "dia": "25/02/2028",
+    "nome": "will",
+    "cpf": "113.010.389-70",
+    "motivo": "Visita",
+    "setor": "TI",
+    "entrada": "09:58",
+    "saida": "09:59",
+    "avaliacao": "5"
+  },
+  {
+    "dia": "11/11/2011",
+    "nome": "aaaa",
+    "cpf": "113.010.389-70",
+    "motivo": "aaa",
+    "setor": "TI",
+    "entrada": "10:00",
+    "saida": "11:11",
+    "avaliacao": "5"
+  },
+  {
+    "dia": "11/09/2001",
+    "nome": "mohammed",
+    "cpf": "113.010.389-70",
+    "motivo": "aviao",
+    "setor": "TI",
+    "entrada": "11:11",
+    "saida": "12:12",
+    "avaliacao": "5"
+  },
+  {
+    "dia": "13/05/2026",
+    "nome": "will",
+    "cpf": "113.010.389-70",
+    "motivo": "Visita",
+    "setor": "TI",
+    "entrada": "09:58",
+    "saida": "09:59",
+    "avaliacao": "1"
+  },
+  {
+    "dia": "13/05/2026",
+    "nome": "Arthur",
+    "cpf": "101.566.229-39",
+    "motivo": "embuchar um gordo",
+    "setor": "SISAE",
+    "entrada": "00:00",
+    "saida": "23:59",
+    "avaliacao": "5"
+  },
+  {
+    "dia": "15/05/2026",
+    "nome": "Arthur",
+    "cpf": "101.566.229-39",
+    "motivo": "Desembuchar um magro",
+    "setor": "SISAE",
+    "entrada": "09:58",
+    "saida": "09:59",
+    "avaliacao": "1"
+  },
+  {
+    "dia": "13/05/2026",
+    "nome": "will",
+    "cpf": "113.010.389-70",
+    "motivo": "Visita",
+    "setor": "Cantina",
+    "entrada": "11:11",
+    "saida": "12:12",
+    "avaliacao": "5"
+  },
+  {
+    "dia": "13/05/2026",
+    "nome": "will",
+    "cpf": "113.010.389-70",
+    "motivo": "Visita",
+    "setor": "Cantina",
     "entrada": "09:58",
     "saida": "09:59",
     "avaliacao": "1"
