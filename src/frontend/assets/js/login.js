@@ -1,8 +1,8 @@
-import { logar } from './modules/auth.js'; // garante que o caminho está correto
+import { logar } from './modules/auth.js';
 
-const btn = document.querySelector('input[type="submit"]');
+const btn = document.querySelector('button');
 
 btn?.addEventListener('click', (e) => {
-    e.preventDefault(); // previne o reload do form
-    logar();           // chama a função importada
+    e.preventDefault();
+    logar();
 });
