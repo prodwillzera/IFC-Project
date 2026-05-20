@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instituto Federal Catarinense - Inicio</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    body{
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding: 25px 25px 10px;
+        /* background-color: rgb(174, 174, 248); */
+        border-bottom-style: solid;
+        border-bottom-color: #ccc;
+        border-bottom-width: 2px;
+    }
+
+    .logo-IFC {
+        height: 80px;
+        width: 80px;
+        object-fit: contain;
+        /* background-color: red; */
+    }
+
+    .left-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        /* border-style: solid; */
+        /* min-width: 500px; */
+    }
+
+    .navbar-pages ul {
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        list-style: none;
+        gap: 30px;
+        padding: 0 25px;
+        margin: 0;
+        /* border-style: solid; */
+        min-width: 325px;
+        /* border: 2px, solid; */
+    }
+
+    a{
+        text-decoration: none;
+        color: rgb(0,69,0);
+        /* border: 2px, solid; */
+    }
+
+    section{
+        display: flex;
+        flex: 1;
+        /* border: 2px solid; */
+    }
+
+    footer{
+        /* border: 2px solid; */
+        text-align: center;
+        padding: 15px 0;
+        border-top: 2px solid #ccc;
+    }
+
+    .page-container{
+        /* border: 2px solid; */
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100vh;
+    }
+
+    .left-side{
+        /* background: aqua; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 50px;
+        color: rgb(0,69,0);
+    }
+
+    .left-side h1{
+        /* background: red; */
+        font-size: 52px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    .left-side p{
+        /* background: blue; */
+        font-size: 18px;
+        color: #555;
+    }
+
+    .right-side{
+        /* background: orange; */
+        flex: 1;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-right: 20px;
+    }
+
+    .right-side p{
+        /* background: green; */
+        font-size: 18px;
+    }
+
+    .container-access{
+        height: 300px;
+        min-width: 260px;
+
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container-access h2{
+        min-height: 90px;
+    }
+
+    .container-access p{
+        flex: 1;
+    }
+
+    .submit-button-page0{
+        margin-top: auto;
+    }
+
+    button{
+        text-decoration: none;
+        width: 100%;
+        margin-top: 25px;
+        padding: 15px;
+        border-radius: 10px;
+        background: rgb(0, 120, 0);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="page-container">
+        <header>
+            <div class="left-section">
+                <div>
+                    <a href="#">
+                        <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo_IFC_vertical_Fraiburgo"
+                            class="logo-IFC">
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <h1>
+                            Sistema Integrado de Recepção do IFC
+                        </h1>
+                    </a>
+
+                </div>
+            </div>
+            <nav class="navbar-pages">
+                <ul class="nav-list-pages">
+                    <li><a href="page1.html" class="nav-link-reception">Recepção</a></li>
+                    <li><a href="page2.html" class="nav-link-graph">Gráfico geral</a></li>
+                    <li><a href="page3.html" class="nav-link-graph2">Gráfico dos Setores</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <section>
+            <div class="left-side">
+                <h1 style="font-size: 40px;">
+                    Sistema Integrado de Recepção do IFC
+                </h1>
+                <p>
+                    Selecione uma das opções para acessar as funcionalidades do sistema.
+                </p>
+            </div>
+
+            <div class="right-side">
+                <form class="container-access">
+                    <h2>Tabela de Recepção</h2>
+
+                    <p>
+                        Visualize e realize registro de uma recepção
+                    </p>
+
+                    <div class="submit-button-page0">
+                        <button class="Reception">Acessar</button>
+                    </div>
+                </form>
+                <form class="container-access">
+                    <h2>Gráfico geral do Campus</h2>
+
+                    <p>
+                        Confira dados gerais da recepção do Campus.
+                    </p>
+
+                    <div class="submit-button-page0">
+                        <button class="generalGraph">Acessar</button>
+                    </div>
+                </form>
+                <form class="container-access">
+                    <h2>Gráfico dos Setores</h2>
+
+                    <p>
+                        Veja o desempenho dos setores cadastrados.
+                    </p>
+
+                    <div class="submit-button-page0">
+                        <button class="sectorGraph">Acessar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+            
+
+
+
+        <script type="module" src="../assets/js/lobby.js"></script>
+        <footer>
+            <nav class="navbar">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link-contact">Contato</a></li>
+                    <li><a href="#" class="nav-link-FAQ">FAQ</a></li>
+                    <li><a href="#" class="nav-link-about_system">Sobre o Sistema</a></li>
+                </ul>
+            </nav>
+            <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

@@ -1,60 +1,231 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="https://blumenau.ifc.edu.br/wp-content/plugins/ifc-funcionalidade/res/images/favicon.png" sizes="any">
-    <link rel="stylesheet" href="../assets/css/extras.css">
-    <title>Recepção IFC - Campus Fraiburgo</title>
+    <title>Instituto Federal Catarinense - Inicio</title>
 </head>
-    <body class="page1">
-        <div class="navbar">
-            <header>
-                <h3 class="title">Sistema integrado de recepção do IFC</h1>
-                <nav>
-                    <ul class="list">
-                        <li><a class="table" href="#">Tabela de recepção</a></li>
-                        <li><a class="graph" href="page2.html">Gráfico geral</a></li>
-                        <li><a class="graph1" href="page3.html">Gráfico dos Setores</a></li>
-                    </ul>
-                </nav>
-            </header>
-        </div>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
 
-        <main>
-            <h2 class="subtitle">Tabela de Recepção</h2>
-            <table style="width:100%">
-                <thead>
-                    <tr>
-                        <th class="day">Data</th>
-                        <th class="name">Nome/Empresa</th>
-                        <th class="id-card">CPF</th>
-                        <th class="why">Motivo</th>
-                        <th class="sector">Setor</th>
-                        <th class="entry">Entrada</th>
-                        <th class="exit">Saída</th>
-                        <th class="score">Avaliação</th>
-                    </tr>
-                </thead>
+    body {
+        margin: 0;
+        padding: 0;
+    }
 
-                <tbody>                
-                    <tr>
-                        <td><input id="input-day" type="text" class="input-cell" placeholder="DD/MM/YYYY" maxlength="10"></td>
-                        <td><input id="input-name" type="text" class="input-cell" placeholder="Nome/Empresa"></td>
-                        <td><input id="input-id" type="text" class="input-cell" placeholder="123.456.789-00" maxlength="14"></td>
-                        <td><input id="input-why" type="text" class="input-cell" placeholder="Motivo"></td>
-                        <td><input id="input-sector" type="text" class="input-cell" placeholder="Setor"></td>
-                        <td><input id="input-entry" type="text" class="input-cell" placeholder="HH:MM" maxlength="5"></td>
-                        <td><input id="input-exit" type="text" class="input-cell" placeholder="HH:MM" maxlength="5"></td>
-                        <td><input id="input-score" type="text" class="input-cell" placeholder="1-5" maxlength="1" inputmode="numeric"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <input type="submit" id="submitbtn">
-        </main>
+    header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding: 25px 25px 10px;
+        /* background-color: rgb(174, 174, 248); */
+        border-bottom-style: solid;
+        border-bottom-color: #ccc;
+        border-bottom-width: 2px;
+    }
 
-        <p class="teste">Protótipo não funcional, apenas visual...</p>
+    .logo-IFC {
+        height: 80px;
+        width: 80px;
+        object-fit: contain;
+        /* background-color: red; */
+    }
 
-        <script type="module" src="../assets/js/dashboard.js"></script>
-    </body>
+    .left-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        /* border-style: solid; */
+        /* min-width: 500px; */
+    }
+
+    .navbar-pages ul {
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+        list-style: none;
+        gap: 30px;
+        padding: 0 25px;
+        margin: 0;
+        /* border-style: solid; */
+        min-width: 325px;
+        /* border: 2px, solid; */
+    }
+
+    a {
+        text-decoration: none;
+        color: rgb(0, 69, 0);
+        /* border: 2px, solid; */
+    }
+
+    section {
+        display: flex;
+        /*         flex: 1; */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        /* border: 2px solid; */
+    }
+
+    footer {
+        /* border: 2px solid; */
+        text-align: center;
+        padding: 15px 0;
+        border-top: 2px solid #ccc;
+    }
+
+    .page-container {
+        /* border: 2px solid; */
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100vh;
+    }
+
+
+    .div-button input {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        border-radius: 10px;
+        background: rgb(0, 120, 0);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .submit-button-page1 {
+        height: 100%;
+        /* box-sizing: border-box; */
+        padding: 0 15px;
+        font-size: 15px;
+        background-color: white;
+        border-radius: 5px;
+        transition: background-color 0.25s ease;
+    }
+
+    th, td {
+        border: 1px solid #ddd; /* Borda cinza clara */
+        padding: 12px;
+        text-align: left;
+    }
+
+    th,tr {
+        background-color: white;
+        color: #333;
+    }
+
+    table{
+        width: 100%;
+        border-collapse: collapse; /* Bordas unidas */
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .input-cell {
+        width: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+        padding: 0;
+        font-size: 14px;
+    }
+</style>
+
+<body>
+    <div class="page-container">
+        <header>
+            <div class="left-section">
+                <div>
+                    <a href="page0.html">
+                        <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo_IFC_vertical_Fraiburgo"
+                            class="logo-IFC">
+                    </a>
+                </div>
+                <div>
+                    <a href="page0.html">
+                        <h1>
+                            Sistema Integrado de Recepção do IFC
+                        </h1>
+                    </a>
+
+                </div>
+            </div>
+            <nav class="navbar-pages">
+                <ul class="nav-list-pages">
+                    <li><a href="#" class="nav-link-reception">Recepção</a></li>
+                    <li><a href="page2.html" class="nav-link-graph">Gráfico geral</a></li>
+                    <li><a href="page3.html" class="nav-link-graph2">Gráfico dos Setores</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <section>
+            <div>
+                <h2 class="subtitle">Tabela de Recepção</h2>
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="day">Data</th>
+                            <th class="name">Nome/Empresa</th>
+                            <th class="id-card">CPF</th>
+                            <th class="why">Motivo</th>
+                            <th class="sector">Setor</th>
+                            <th class="entry">Entrada</th>
+                            <th class="exit">Saída</th>
+                            <th class="score">Avaliação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><input id="input-day" type="text" class="input-cell" placeholder="DD/MM/YYYY"
+                                    maxlength="10"></td>
+                            <td><input id="input-name" type="text" class="input-cell" placeholder="Nome/Empresa"></td>
+                            <td><input id="input-id" type="text" class="input-cell" placeholder="123.456.789-00"
+                                    maxlength="14"></td>
+                            <td><input id="input-why" type="text" class="input-cell" placeholder="Motivo"></td>
+                            <td><input id="input-sector" type="text" class="input-cell" placeholder="Setor"></td>
+                            <td><input id="input-entry" type="text" class="input-cell" placeholder="HH:MM"
+                                    maxlength="5"></td>
+                            <td><input id="input-exit" type="text" class="input-cell" placeholder="HH:MM" maxlength="5">
+                            </td>
+                            <td><input id="input-score" type="text" class="input-cell" placeholder="1-5" maxlength="1"
+                                    inputmode="numeric"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="div-button">
+                <input type="submit" id="submitbtn" class="submit-button-page1" value="Cadastrar">
+            </div>
+            <script type="module" src="../assets/js/dashboard.js"></script>
+        </section>
+
+
+
+
+        
+        <footer>
+            <nav class="navbar">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link-contact">Contato</a></li>
+                    <li><a href="#" class="nav-link-FAQ">FAQ</a></li>
+                    <li><a href="#" class="nav-link-about_system">Sobre o Sistema</a></li>
+                </ul>
+            </nav>
+            <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+</body>
+
 </html>
