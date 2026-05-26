@@ -8,7 +8,7 @@ import { applyMask } from './modules/mask.js';
 
 applyMask();
 
-const 
+const
     inputDay = document.getElementById("input-day"),
     inputName = document.getElementById("input-name"),
     inputId = document.getElementById("input-id"),
@@ -35,16 +35,16 @@ button.addEventListener("click", async (event) => {
 
     console.table(dataInputs);
 
-    const isValid = 
+    const isValid =
         validateData(dataInputs.dia) &&
         validateID(dataInputs.cpf) &&
         validateHour(dataInputs.entrada) &&
         validateHour(dataInputs.saida);
 
-        if(!isValid) {
-            alert("Dados inválidos");
-            return;
-        } 
+    if (!isValid) {
+        alert("Dados inválidos");
+        return;
+    }
 
     const response = await fetch("/salvar", {
         method: "POST",
@@ -68,3 +68,39 @@ button.addEventListener("click", async (event) => {
     inputScore.value = "";
 
 });
+
+let sequencia = "";
+
+addEventListener ("keypress", function (event) {
+    console.log(event.key);
+  
+    sequencia += event.key.toLowerCase();
+
+    let codes = {
+        cogu: () => console.log("Cogumelo_Seco mestre do xanascript"),
+        guto: () => console.log("Você citou o nome proibido, agora morra"),
+        tuki: () => console.log("Multiprofissional e usuario de brave +100 aura"),
+        biruta: () => console.log("Rei do frontend, leao da GC")
+    }
+
+    for (let code in codes) {
+        if (sequencia.includes(code)) {
+            codes[code]()
+            sequencia = "";
+        }
+    }
+});
+
+    //sequencia = sequencia.slice(-6);
+    /* if (sequencia.endsWith("cogu")){
+        
+    }
+    else if (sequencia.endsWith("guto")){
+        
+    }
+    else if (sequencia.endsWith("tuki")){
+        
+    }
+    else if (sequencia.endsWith("biruta")){
+        console.log("Rei do frontend, leao da GC");
+    } */
