@@ -1,67 +1,127 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="https://blumenau.ifc.edu.br/wp-content/plugins/ifc-funcionalidade/res/images/favicon.png" sizes="any">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <title>Recepção IFC - Campus Fraiburgo</title>
-</head>
-    <body class="page3">
-        <div class="navbar">
-            <header>
-                <h3 class="title">Sistema integrado de recepção do IFC</h1>
-                <nav>
-                    <ul class="list">
-                        <li><a class="table" href="page1.html">Tabela de recepção</a></li>
-                        <li><a class="graph" href="page2.html">Gráfico geral</a></li>
-                        <li><a class="graph1" href="#">Gráfico dos Setores</a></li>
-                    </ul>
-                </nav>
-            </header>
-        </div>
-        <main>
-            <h2 class="subtitle">Gráfico dos Setores</h2>
-            <table style="width:100%">
-                <tr>
-                    <th class="day"></th>
-                    <th class="name"></th>
-                    <th class="why"></th>
-                    <th class="entry"></th>
-                    <th class="exit"></th>
-                    <th class="score"></th>
-                    <th class="ano-posterior">
-                        <button class="save">Ano posterior</button>
-                    </th>
-                </tr>
-                <tr>
-                    <p>
-                        <td>
-                            <a href=""></a>
-                        </td>
-                        <td>
-                            <a href=""></a>
-                        </td>
-                        <td>
-                            <a href=""></a>
-                        </td>
-                        <td>
-                            <a href=""></a>
-                        </td>
-                        <td>
-                            <a href=""></a>
-                        </td>
-                        <td>
-                            <a href=""></a>
-                        </td>
-                        <td class="ano-anterior">
-                            <button class="save">Ano anterior</button>
-                        </td>
-                    </p>
-                </tr>
-            </table>
-        </main>
-        <p class="teste">Protótipo não funcional, apenas visual...</p>
 
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instituto Federal Catarinense - Gráfico geral</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    async function drawChart() {
+      try {
+        // --- 1. Carregar JSON externo ---
+        const response = await fetch('/grafico'); // caminho correto para subpasta 'data'
+        if (!response.ok) throw new Error("Não foi possível carregar o JSON.");
+        const jsonData = await response.json();
+
+        // --- 2. Criar DataTable ---
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Mês');
+
+        // Colunas dos colaboradores
+        const nomes = [
+          ...new Set(
+            jsonData.flatMap(
+              item =>
+                Object.keys(item).filter(
+                  key => key !== 'mes'
+                )
+            )
+          )
+        ];
+        nomes.forEach(nome => data.addColumn('number', nome));
+
+        // Coluna da média
+        //data.addColumn('number', 'Média');
+
+        // Preencher linhas e calcular média
+        jsonData.forEach(row => {
+          const valores = nomes.map(nome => row[nome]);
+          const valoresValidos = valores.filter(v => typeof v === 'number');
+          /* const media = valoresValidos.reduce((a, b) => a + b, 0) / valoresValidos.length; */
+          data.addRow([row.mes, ...valores/* , media */]);
+        });
+
+        // --- 3. Configurações do gráfico ---
+        const cores = ['blue', 'red', 'maroon', 'black', 'green', 'gray', 'purple', 'chocolate'];
+        const series = nomes.map((_, i) => ({ color: cores[i] }));
+        series.push({ type: 'line', color: 'orange', lineWidth: 2, pointSize: 5 }); // Média
+
+        const options = {
+          title: 'Avaliações dos Colaboradores (0-5)',
+          width: 1000, height: 500,
+          chartArea: { left: 50, top: 50, width: 900, height: 400 },
+          fontName: 'Arial', fontSize: 14,
+          vAxis: { title: 'Nota', minValue: 0, maxValue: 5, viewWindow: { min: 0, max: 5 }, format: '0' },
+          hAxis: { title: 'Mês', textStyle: { fontSize: 12 } },
+          series: series,
+          legend: { position: 'bottom' },
+          annotations: { alwaysOutside: true, textStyle: { fontSize: 12, bold: true } },
+          enableInteractivity: true
+        };
+
+        // --- 4. Desenhar gráfico ---
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+
+      } catch (error) {
+        console.error(error);
+        document.getElementById('chart_div').innerHTML = "Erro ao carregar os dados do gráfico.";
+      }
+    }
+  </script>
+</head>
+
+<body class="page2">
+  <div class="page-container">
+    <header>
+      <div class="left-section">
+        <div>
+          <a href="page0.html">
+            <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo_IFC_vertical_Fraiburgo"
+              class="logo-IFC">
+          </a>
+        </div>
+        <div>
+          <a href="page0.html">
+            <h1>
+              Sistema Integrado de Recepção do IFC
+            </h1>
+          </a>
+
+        </div>
+      </div>
+      <nav class="navbar-pages">
+        <ul class="nav-list-pages">
+          <li><a href="page1.html" class="nav-link-reception">Recepção</a></li>
+          <li><a href="page2.html" class="nav-link-graph">Gráfico geral</a></li>
+          <li><a href="#" class="nav-link-graph2">Gráfico dos Setores</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section>
+      <h2>Gráfico de Avaliações dos Setores IFC</h2>
+      <div id="chart_div"></div>
+    </section>
+
+    <script type="module" src="../assets/js/dashboard.js"></script>
+    <footer>
+      <nav class="navbar">
+        <ul class="nav-list">
+          <li><a href="#" class="nav-link-contact">Contato</a></li>
+          <li><a href="#" class="nav-link-FAQ">FAQ</a></li>
+          <li><a href="#" class="nav-link-about_system">Sobre o Sistema</a></li>
+        </ul>
+      </nav>
+      <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
+    </footer>
+  </div>
+
+</body>
+
 </html>

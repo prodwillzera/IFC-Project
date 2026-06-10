@@ -5,38 +5,38 @@ const receptionPath = path.join(__dirname, "..", "..", "..", "data", "dataRecept
 const graphPath = path.join(__dirname, "..", "..", "..", "data", "data.json");
 
 
-function readReceptionData () {
-    if (!fs.existsSync(receptionPath)) {return [];}
+function readReceptionData() {
+  if (!fs.existsSync(receptionPath)) { return []; }
 
-    const content = fs.readFileSync(receptionPath, "utf8");
+  const content = fs.readFileSync(receptionPath, "utf8");
 
-    return content 
-        ? JSON.parse(content) 
-        : [];
+  return content
+    ? JSON.parse(content)
+    : [];
 }
 
-function saveReceptionData (data) {
-    fs.writeFileSync(receptionPath, JSON.stringify(data, null, 2));
+function saveReceptionData(data) {
+  fs.writeFileSync(receptionPath, JSON.stringify(data, null, 2));
 }
 
 
-function readGraphData () {
-    if (!fs.existsSync(graphPath)) {return [];}
+function readGraphData() {
+  if (!fs.existsSync(graphPath)) { return []; }
 
-    const content = fs.readFileSync(graphPath, "utf8");
+  const content = fs.readFileSync(graphPath, "utf8");
 
-    return content ? JSON.parse(content) : [];
+  return content ? JSON.parse(content) : [];
 }
 
-function saveGraphData (data) {
-    fs.writeFileSync(graphPath, JSON.stringify(data, null, 2));
+function saveGraphData(data) {
+  fs.writeFileSync(graphPath, JSON.stringify(data, null, 2));
 }
 
 module.exports = {
-    readReceptionData,
-    saveReceptionData,
-    readGraphData,
-    saveGraphData
+  readReceptionData,
+  saveReceptionData,
+  readGraphData,
+  saveGraphData
 }
 
 

@@ -3,14 +3,14 @@ const app = express();
 
 
 const {
-    readReceptionData,
-    saveReceptionData,
-    readGraphData,
-    saveGraphData
+  readReceptionData,
+  saveReceptionData,
+  readGraphData,
+  saveGraphData
 } = require("./modules/storage");
 
 const {
-    generateGraphData
+  generateGraphData
 } = require("./modules/statistics");
 
 
@@ -20,49 +20,49 @@ app.use(express.static("src/frontend"));
 
 
 app.post("/salvar", (req, res) => {
-    try {
-        const newData = req.body;
+  try {
+    const newData = req.body;
 
-        const receptionData =
-            readReceptionData();
+    const receptionData =
+      readReceptionData();
 
-        receptionData.push(newData);
+    receptionData.push(newData);
 
-        saveReceptionData(receptionData);
-
-        
-        const graphData =
-            generateGraphData(
-                receptionData
-            );
-
-        saveGraphData(graphData);
-
-        res.json({
-            message: "Salvo com sucesso"
-        });
+    saveReceptionData(receptionData);
 
 
+    const graphData =
+      generateGraphData(
+        receptionData
+      );
 
-    } catch(error) {
+    saveGraphData(graphData);
 
-        console.error(error);
+    res.json({
+      message: "Salvo com sucesso"
+    });
 
-        res.status(500).json({
-            error: error.message
-        });
-    }
-    
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      error: error.message
+    });
+  }
+
 });
 
 app.get("/grafico", (req, res) => {
 
-    const graphData =
-        readGraphData();
+  const graphData =
+    readGraphData();
 
-    res.json(graphData);
+  res.json(graphData);
 });
 
 app.listen(3000, () => {
-    console.log("Servidor rodando em http://localhost:3000");
+  console.log("Servidor rodando em http://localhost:3000");
 });

@@ -1,84 +1,84 @@
-function generateGraphData ( receptionData ) {
+function generateGraphData(receptionData) {
 
-    const result = [];
+  const result = [];
 
-    const months = [
-        "jan", "fev", "mar", "abr",
-        "mai", "jun", "jul", "ago",
-        "set", "out", "nov", "dez"
-    ];
+  const months = [
+    "jan", "fev", "mar", "abr",
+    "mai", "jun", "jul", "ago",
+    "set", "out", "nov", "dez"
+  ];
 
-    receptionData.forEach(item => {
+  receptionData.forEach(item => {
 
-        if (!item.dia) {
-            return;
-        }
+    if (!item.dia) {
+      return;
+    }
 
-        const parts =
-            item.dia.split("/");
+    const parts =
+      item.dia.split("/");
 
-        const month =
-            months[
-                parseInt(parts[1]) - 1
-            ];
+    const month =
+      months[
+      parseInt(parts[1]) - 1
+      ];
 
-        const sector = item.setor;
+    const sector = item.setor;
 
-        const score =
-            Number(item.avaliacao);
-
-
-        let monthData =
-            result.find(
-                data => data.mes === month
-            );
+    const score =
+      Number(item.avaliacao);
 
 
-        if (!monthData) {
-
-            monthData = {
-                mes: month
-            };
-
-            result.push(monthData);
-        }
+    let monthData =
+      result.find(
+        data => data.mes === month
+      );
 
 
-        if (!monthData[sector]) {
+    if (!monthData) {
 
-            monthData[sector] = {
-                total: 0,
-                count: 0
-            };
-        }
+      monthData = {
+        mes: month
+      };
+
+      result.push(monthData);
+    }
 
 
-        monthData[sector].total += score;
+    if (!monthData[sector]) {
 
-        monthData[sector].count++;
+      monthData[sector] = {
+        total: 0,
+        count: 0
+      };
+    }
+
+
+    monthData[sector].total += score;
+
+    monthData[sector].count++;
+  });
+
+  result.forEach(month => {
+
+    Object.keys(month).forEach(key => {
+
+      if (key !== "mes") {
+
+        const sector = month[key];
+
+        month[key] = Number(
+          (
+            sector.total /
+            sector.count
+          ).toFixed(1)
+        );
+      }
     });
-    
-    result.forEach(month => {
+  });
 
-        Object.keys(month).forEach(key => {
-
-            if (key !== "mes") {
-
-                const sector = month[key];
-
-                month[key] = Number(
-                    (
-                        sector.total /
-                        sector.count
-                    ).toFixed(1)
-                );
-            }
-        });
-    });
-
-    return result;
+  return result;
 }
 
 module.exports = {
-    generateGraphData
+  generateGraphData
 };

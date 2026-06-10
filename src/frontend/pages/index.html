@@ -2,99 +2,96 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instituto Federal Catarinense - Recepção</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instituto Federal Catarinense - Recepção</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+
 <body class="index">
-    <div class="page-container">
-        <header>
-            <div class="left-section">
-                <div>
-                    <a href="#">
-                        <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo_IFC_vertical_Fraiburgo"
-                            class="logo-IFC">
-                    </a>
-                </div>
-                <div>
-                    <a href="#">
-                        <h1>
-                            Sistema Integrado de Recepção do IFC
-                        </h1>
-                    </a>
+  <div class="page-container">
+    <header>
+      <div class="left-section">
+        <div>
+          <a href="#">
+            <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo_IFC_vertical_Fraiburgo"
+              class="logo-IFC">
+          </a>
+        </div>
+        <div>
+          <a href="#">
+            <h1>
+              Sistema Integrado de Recepção do IFC
+            </h1>
+          </a>
 
-                </div>
-            </div>
-            <nav class="navbar-pages">
-                <ul class="nav-list-pages">
-                    <li><a href="#" class="nav-link-reception">Recepção</a></li>
-                    <li><a href="#" class="nav-link-graph">Gráfico geral</a></li>
-                    <li><a href="#" class="nav-link-graph2">Gráfico dos Setores</a></li>
-                </ul>
-            </nav>
-        </header>
+        </div>
+      </div>
+      <nav class="navbar-pages">
+        <ul class="nav-list-pages">
+          <li><a href="#" class="nav-link-reception">Recepção</a></li>
+          <li><a href="#" class="nav-link-graph">Gráfico geral</a></li>
+          <li><a href="#" class="nav-link-graph2">Gráfico dos Setores</a></li>
+        </ul>
+      </nav>
+    </header>
 
+    <section>
+      <div class="left-side">
+        <img src="../assets/img/Logo_IFC_vertical_Fraiburgo.png" alt="Logo_IFC_vertical_Fraiburgo" class="logo">
+        <h1>
+          Sistema Integrado de Recepção do IFC
+        </h1>
+        <p>
+          Bem-vindo! Faça login para acessar o sistema.
+        </p>
+      </div>
 
-        <section>
-            <div class="left-side">
-                <img src="../assets/img/Logo_IFC_vertical_Fraiburgo.png" alt="Logo_IFC_vertical_Fraiburgo" class="logo">
-                <h1>
-                    Sistema Integrado de Recepção do IFC
-                </h1>
-                <p>
-                    Bem-vindo! Faça login para acessar o sistema.
-                </p>
-            </div>
+      <div class="right-side">
+        <form class="container-login">
+          <h2>Acessar sua conta</h2>
 
-            <div class="right-side">
-                <form class="container-login">
-                    <h2>Acessar sua conta</h2>
+          <div class="input-box">
+            <input type="text" placeholder="Login" id="user" required>
+          </div>
 
-                    <div class="input-box">
-                        <input type="text" placeholder="Login" id="user">
-                    </div>
+          <div class="input-box">
+            <input type="password" placeholder="Senha" id="password" required>
+          </div>
 
-                    <div class="input-box">
-                        <input type="password" placeholder="Senha" id="password">
-                    </div>
+          <div class="forgotRemember">
+            <label>
+              <input id="rememberPass" type="checkbox">
+              Lembrar minha senha
+            </label>
 
-                    <div class="forgotRemember">
-                        <label>
-                            <input id="rememberPass" type="checkbox">
-                            Lembrar minha senha
-                        </label>
+            <a class="forgotPassWord" href="#">Esqueci minha senha</a>
+          </div>
 
-                        <a class="forgotPassWord" href="#">Esqueci minha senha</a>
-                    </div>
+          <div class="submit-button">
+            <button>Entrar</button>
+          </div>
+          <div class="register-link">
+            <p>Não tem uma conta? <a>Solicite acesso aqui</a></p>
+          </div>
+        </form>
+      </div>
 
-                    <div class="submit-button">
-                        <button>Entrar</button>
-                    </div>
-                    <div class="register-link">
-                        <p>Não tem uma conta? <a>Solicite acesso aqui</a></p>
-                    </div>
-                </form>
-            </div>
+      <script type="module" src="../assets/js/login.js"></script>
+    </section>
 
-            <script type="module" src="../assets/js/login.js"></script>
-        </section>
-            
-
-
-
-        <script type="module" src="../assets/js/lobby.js"></script>
-        <footer>
-            <nav class="navbar">
-                <ul class="nav-list">
-                    <li><a href="#" class="nav-link-contact">Contato</a></li>
-                    <li><a href="#" class="nav-link-FAQ">FAQ</a></li>
-                    <li><a href="#" class="nav-link-about_system">Sobre o Sistema</a></li>
-                </ul>
-            </nav>
-            <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
-        </footer>
-    </div>
+    <script type="module" src="../assets/js/lobby.js"></script>
+    <footer>
+      <nav class="navbar">
+        <ul class="nav-list">
+          <li><a href="#" class="nav-link-contact">Contato</a></li>
+          <li><a href="#" class="nav-link-FAQ">FAQ</a></li>
+          <li><a href="#" class="nav-link-about_system">Sobre o Sistema</a></li>
+        </ul>
+      </nav>
+      <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
+    </footer>
+  </div>
 
 </body>
 
