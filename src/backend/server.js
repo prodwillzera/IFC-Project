@@ -1,23 +1,20 @@
-const express = require("express");
-const app = express();
+import express from 'express';
 
-
-const {
+import {
   readReceptionData,
   saveReceptionData,
   readGraphData,
   saveGraphData
-} = require("./modules/storage");
+} from "./modules/storage.js";
 
-const {
-  generateGraphData
-} = require("./modules/statistics");
+import { 
+  generateGraphData 
+} from "./modules/statistics.js";
 
+const app = express();
 
 app.use(express.json());
 app.use(express.static("src/frontend"));
-
-
 
 app.post("/salvar", (req, res) => {
   try {

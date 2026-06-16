@@ -1,27 +1,42 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const receptionPath = path.join(__dirname, "..", "..", "..", "data", "dataReception.json");
-const graphPath = path.join(__dirname, "..", "..", "..", "data", "data.json");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+const receptionPath = path.join(
+  __dirname,
+  "..",
+  "..",
+  "..",
+  "data",
+  "dataReception.json"
+);
+
+const graphPath = path.join(
+  __dirname,
+  "..",
+  "..",
+  "..",
+  "data",
+  "data.json"
+);
 
 function readReceptionData() {
-  if (!fs.existsSync(receptionPath)) { return []; }
+  if (!fs.existsSync(receptionPath)) return [];
 
   const content = fs.readFileSync(receptionPath, "utf8");
 
-  return content
-    ? JSON.parse(content)
-    : [];
+  return content ? JSON.parse(content) : [];
 }
 
 function saveReceptionData(data) {
   fs.writeFileSync(receptionPath, JSON.stringify(data, null, 2));
 }
 
-
 function readGraphData() {
-  if (!fs.existsSync(graphPath)) { return []; }
+  if (!fs.existsSync(graphPath)) return [];
 
   const content = fs.readFileSync(graphPath, "utf8");
 
@@ -32,13 +47,12 @@ function saveGraphData(data) {
   fs.writeFileSync(graphPath, JSON.stringify(data, null, 2));
 }
 
-module.exports = {
+export {
   readReceptionData,
   saveReceptionData,
   readGraphData,
   saveGraphData
-}
-
+};
 
 /*         let data = [];
 

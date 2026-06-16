@@ -298,5 +298,25 @@
     "entrada": "09:00",
     "saida": "11:30",
     "avaliacao": "4"
+  },
+  {
+    "dia": "16/06/2026",
+    "nome": "William",
+    "cpf": "113.010.389-70",
+    "motivo": "pastel",
+    "setor": "Cantina",
+    "entrada": "09:00",
+    "saida": "12:00",
+    "avaliacao": "5"
+  },
+  {
+    "dia": "16/06/2026",
+    "nome": "William",
+    "cpf": "113.010.389-70",
+    "motivo": "PASTELAO",
+    "setor": "Cantina",
+    "entrada": "12:00",
+    "saida": "15:00",
+    "avaliacao": "5"
   }
 ]

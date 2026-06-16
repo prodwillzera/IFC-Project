@@ -79,6 +79,6 @@ function generateGraphData(receptionData) {
   return result;
 }
 
-module.exports = {
+export {
   generateGraphData
 };
