@@ -4,124 +4,355 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instituto Federal Catarinense - Gráfico geral</title>
+  <title>IFC - Desempenho dos Setores</title>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="icon" type="image/png" href="../../public/favicon.png">
+  <!-- Load Google Charts -->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-    google.charts.load('current', { packages: ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
-
-    async function drawChart() {
-      try {
-        // --- 1. Carregar JSON externo ---
-        const response = await fetch('/grafico'); // caminho correto para subpasta 'data'
-        if (!response.ok) throw new Error("Não foi possível carregar o JSON.");
-        const jsonData = await response.json();
-
-        // --- 2. Criar DataTable ---
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Mês');
-
-        // Colunas dos colaboradores
-        const nomes = [
-          ...new Set(
-            jsonData.flatMap(
-              item =>
-                Object.keys(item).filter(
-                  key => key !== 'mes'
-                )
-            )
-          )
-        ];
-        nomes.forEach(nome => data.addColumn('number', nome));
-
-        // Coluna da média
-        //data.addColumn('number', 'Média');
-
-        // Preencher linhas e calcular média
-        jsonData.forEach(row => {
-          const valores = nomes.map(nome => row[nome]);
-          const valoresValidos = valores.filter(v => typeof v === 'number');
-          /* const media = valoresValidos.reduce((a, b) => a + b, 0) / valoresValidos.length; */
-          data.addRow([row.mes, ...valores/* , media */]);
-        });
-
-        // --- 3. Configurações do gráfico ---
-        const cores = ['blue', 'red', 'maroon', 'black', 'green', 'gray', 'purple', 'chocolate'];
-        const series = nomes.map((_, i) => ({ color: cores[i] }));
-        series.push({ type: 'line', color: 'orange', lineWidth: 2, pointSize: 5 }); // Média
-
-        const options = {
-          title: 'Avaliações dos Colaboradores (0-5)',
-          width: 1000, height: 500,
-          chartArea: { left: 50, top: 50, width: 900, height: 400 },
-          fontName: 'Arial', fontSize: 14,
-          vAxis: { title: 'Nota', minValue: 0, maxValue: 5, viewWindow: { min: 0, max: 5 }, format: '0' },
-          hAxis: { title: 'Mês', textStyle: { fontSize: 12 } },
-          series: series,
-          legend: { position: 'bottom' },
-          annotations: { alwaysOutside: true, textStyle: { fontSize: 12, bold: true } },
-          enableInteractivity: true
-        };
-
-        // --- 4. Desenhar gráfico ---
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-
-      } catch (error) {
-        console.error(error);
-        document.getElementById('chart_div').innerHTML = "Erro ao carregar os dados do gráfico.";
-      }
-    }
-  </script>
 </head>
 
 <body class="page2">
   <div class="page-container">
     <header>
       <div class="left-section">
-        <div>
-          <a href="page0.html">
-            <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo_IFC_vertical_Fraiburgo"
-              class="logo-IFC">
-          </a>
-        </div>
-        <div>
-          <a href="page0.html">
-            <h1>
-              Sistema Integrado de Recepção do IFC
-            </h1>
-          </a>
-
-        </div>
+        <a href="page0.html">
+          <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo IFC" class="logo-IFC">
+        </a>
+        <a href="page0.html" style="text-decoration: none;">
+          <h1>Sistema Integrado de Recepção do IFC</h1>
+        </a>
       </div>
       <nav class="navbar-pages">
         <ul class="nav-list-pages">
           <li><a href="page1.html" class="nav-link-reception">Recepção</a></li>
           <li><a href="page2.html" class="nav-link-graph">Gráfico geral</a></li>
-          <li><a href="#" class="nav-link-graph2">Gráfico dos Setores</a></li>
+          <li><a href="#" class="active">Gráfico dos Setores</a></li>
         </ul>
       </nav>
+
+      <div class="user-menu">
+        <div class="user-info">
+          <span class="user-name" id="user-display-name">Carregando...</span>
+          <span class="user-role" id="user-display-role">Recepcionista</span>
+        </div>
+        <button id="logout-btn" class="btn-logout">Sair</button>
+      </div>
     </header>
 
     <section>
-      <h2>Gráfico de Avaliações dos Setores IFC</h2>
-      <div id="chart_div"></div>
+      <!-- Page Title -->
+      <div class="chart-header-row">
+        <div>
+          <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main);">Estatísticas por Setor</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Compare o fluxo de visitas e os índices de satisfação dos setores do IFC.</p>
+        </div>
+
+        <!-- Dynamic Filters Bar -->
+        <div class="chart-filters">
+          <select id="filter-month">
+            <option value="">Todos os Meses</option>
+            <option value="01">Janeiro</option>
+            <option value="02">Fevereiro</option>
+            <option value="03">Março</option>
+            <option value="04">Abril</option>
+            <option value="05">Maio</option>
+            <option value="06">Junho</option>
+            <option value="07">Julho</option>
+            <option value="08">Agosto</option>
+            <option value="09">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>
+          </select>
+
+          <!-- Chart Selector: Volume of Visits vs Average Score -->
+          <select id="chart-type-selector">
+            <option value="pie-volume">Proporção de Visitas (Pizza)</option>
+            <option value="column-score">Média de Satisfação (Colunas)</option>
+            <option value="bar-volume">Volume de Visitas (Barras)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Quick KPI Stats Above the Chart -->
+      <div class="chart-stats-grid">
+        <div class="chart-stats-card">
+          <span class="lbl">Setor Mais Visitado</span>
+          <span class="val" id="stat-most-visited">-</span>
+        </div>
+        <div class="chart-stats-card highlight">
+          <span class="lbl">Setor Melhor Avaliado</span>
+          <span class="val" id="stat-best-score">-</span>
+        </div>
+        <div class="chart-stats-card">
+          <span class="lbl">Média de Satisfação</span>
+          <span class="val" id="stat-global-avg">0.0 ★</span>
+        </div>
+        <div class="chart-stats-card">
+          <span class="lbl">Total de Atendimentos</span>
+          <span class="val" id="stat-total-count">0</span>
+        </div>
+      </div>
+
+      <!-- Chart Container Card -->
+      <div class="chart-container-card">
+        <div id="chart_div">
+          <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+            Carregando estrutura de gráficos do Google...
+          </div>
+        </div>
+      </div>
     </section>
 
-    <script type="module" src="../assets/js/dashboard.js"></script>
     <footer>
       <nav class="navbar">
         <ul class="nav-list">
-          <li><a href="#" class="nav-link-contact">Contato</a></li>
-          <li><a href="#" class="nav-link-FAQ">FAQ</a></li>
-          <li><a href="#" class="nav-link-about_system">Sobre o Sistema</a></li>
+          <li><a href="#" onclick="alert('Suporte IFC: ti.fraiburgo@ifc.edu.br')">Contato</a></li>
+          <li><a href="#" onclick="alert('FAQ: Sistema de Recepção IFC v1.0 MVP')">FAQ</a></li>
+          <li><a href="#" onclick="alert('Sistema Desenvolvido para a MICTI - IFC Fraiburgo.')">Sobre o Sistema</a></li>
         </ul>
       </nav>
       <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
     </footer>
   </div>
 
+  <script type="module">
+    import { checkAuth, getLoggedUser, logout } from '../assets/js/modules/auth.js';
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Auth Guard
+      checkAuth();
+      const user = getLoggedUser();
+      if (user) {
+        document.getElementById("user-display-name").textContent = user.name;
+        document.getElementById("user-display-role").textContent = user.role;
+      }
+
+      document.getElementById("logout-btn")?.addEventListener("click", () => {
+        logout();
+      });
+
+      // Load Google Charts
+      google.charts.load('current', { packages: ['corechart'] });
+      google.charts.setOnLoadCallback(initPage);
+    });
+
+    let rawVisitsData = [];
+
+    async function initPage() {
+      try {
+        const response = await fetch('/grafico');
+        if (!response.ok) throw new Error("Falha ao obter registros.");
+        rawVisitsData = await response.json();
+
+        // Listeners for filters to trigger instant re-draw
+        document.getElementById("filter-month").addEventListener("change", processAndDraw);
+        document.getElementById("chart-type-selector").addEventListener("change", processAndDraw);
+
+        processAndDraw();
+      } catch (err) {
+        console.error(err);
+        document.getElementById('chart_div').innerHTML = `
+          <div style="color: var(--danger); font-weight: 500;">
+            Erro de conexão: Não foi possível obter dados para os gráficos.
+          </div>
+        `;
+      }
+    }
+
+    function processAndDraw() {
+      const monthFilter = document.getElementById("filter-month").value;
+      const chartType = document.getElementById("chart-type-selector").value;
+
+      // 1. Filter raw visits based on month
+      const filtered = rawVisitsData.filter(item => {
+        if (!item.dia) return false;
+        
+        // Parse month (DD/MM/YYYY -> parts[1])
+        const parts = item.dia.split('/');
+        const itemMonth = parts[1]; // "05", "11", etc.
+
+        return !monthFilter || itemMonth === monthFilter;
+      });
+
+      // 2. Perform stats calculations per sector
+      const sectorsMap = {}; // { 'TI': { count: 0, sumScores: 0 } }
+
+      let globalSum = 0, globalCount = 0;
+
+      filtered.forEach(item => {
+        const sector = item.setor || "Outros";
+        const score = parseFloat(item.avaliacao);
+
+        if (!sectorsMap[sector]) {
+          sectorsMap[sector] = { count: 0, sumScores: 0 };
+        }
+
+        sectorsMap[sector].count++;
+
+        if (!isNaN(score) && score > 0) {
+          sectorsMap[sector].sumScores += score;
+          globalSum += score;
+          globalCount++;
+        }
+      });
+
+      // Find KPI statistics
+      let mostVisitedSector = "Nenhum";
+      let maxVisits = 0;
+      let bestRatedSector = "Nenhum";
+      let bestAvgScore = 0;
+
+      Object.keys(sectorsMap).forEach(sector => {
+        const data = sectorsMap[sector];
+        
+        // Check visits count
+        if (data.count > maxVisits) {
+          maxVisits = data.count;
+          mostVisitedSector = sector;
+        }
+
+        // Check average rating
+        const avg = data.count > 0 ? (data.sumScores / data.count) : 0;
+        if (avg > bestAvgScore) {
+          bestAvgScore = avg;
+          bestRatedSector = sector;
+        }
+      });
+
+      const globalAvg = globalCount > 0 ? (globalSum / globalCount).toFixed(1) : "0.0";
+
+      // Render KPIs
+      document.getElementById("stat-most-visited").textContent = mostVisitedSector === "Nenhum" ? "-" : `${mostVisitedSector} (${maxVisits})`;
+      document.getElementById("stat-best-score").textContent = bestRatedSector === "Nenhum" ? "-" : `${bestRatedSector} (${bestAvgScore.toFixed(1)}★)`;
+      document.getElementById("stat-global-avg").textContent = `${globalAvg} ★`;
+      document.getElementById("stat-total-count").textContent = filtered.length;
+
+      // Ensure we have some rows
+      const sectorNames = Object.keys(sectorsMap);
+      if (sectorNames.length === 0) {
+        document.getElementById('chart_div').innerHTML = `
+          <div style="color: var(--text-muted); font-size: 0.95rem;">
+            Nenhum registro correspondente no período selecionado.
+          </div>
+        `;
+        return;
+      }
+
+      // 3. Render the Google Chart depending on the selection
+      const colors = ['#0f7d3a', '#2563eb', '#9333ea', '#db2777', '#0d9488', '#4f46e5', '#ca8a04', '#e11d48'];
+      const chartContainer = document.getElementById('chart_div');
+      chartContainer.innerHTML = ""; // Clear loader text
+
+      if (chartType === "pie-volume") {
+        // A. Pie Chart: Proportional distribution of visits per sector
+        const gData = new google.visualization.DataTable();
+        gData.addColumn('string', 'Setor');
+        gData.addColumn('number', 'Visitas');
+
+        sectorNames.forEach(name => {
+          gData.addRow([name, sectorsMap[name].count]);
+        });
+
+        const options = {
+          title: 'Distribuição Proporcional de Visitas por Setor',
+          fontName: 'Poppins',
+          fontSize: 12,
+          colors: colors,
+          chartArea: { left: '10%', top: '15%', width: '80%', height: '70%' },
+          legend: { position: 'right', textStyle: { color: '#1e293b', fontSize: 11 } },
+          backgroundColor: { fill:'transparent' },
+          pieHole: 0.4, // Donut style
+          tooltip: { textStyle: { fontName: 'Poppins', fontSize: 12 } }
+        };
+
+        const chart = new google.visualization.PieChart(chartContainer);
+        chart.draw(gData, options);
+
+      } else if (chartType === "column-score") {
+        // B. Column Chart: Average satisfaction ratings per sector
+        const gData = new google.visualization.DataTable();
+        gData.addColumn('string', 'Setor');
+        gData.addColumn('number', 'Média de Notas');
+        // Add color column for individual bars
+        gData.addColumn({ type: 'string', role: 'style' });
+
+        sectorNames.forEach((name, idx) => {
+          const avgScore = sectorsMap[name].count > 0 
+            ? parseFloat((sectorsMap[name].sumScores / sectorsMap[name].count).toFixed(1))
+            : 0;
+          gData.addRow([name, avgScore, `color: ${colors[idx % colors.length]}`]);
+        });
+
+        const options = {
+          title: 'Média de Avaliação de Satisfação por Setor (0-5)',
+          fontName: 'Poppins',
+          fontSize: 12,
+          chartArea: { left: '8%', top: '15%', width: '84%', height: '65%' },
+          legend: { position: 'none' },
+          backgroundColor: { fill:'transparent' },
+          vAxis: { 
+            title: 'Nota Média', 
+            minValue: 0, 
+            maxValue: 5,
+            viewWindow: { min: 0, max: 5 },
+            gridlines: { count: 6 },
+            textStyle: { color: '#475569', fontSize: 11 }
+          },
+          hAxis: { 
+            title: 'Setores',
+            textStyle: { color: '#475569', fontSize: 11 }
+          },
+          animation: {
+            duration: 450,
+            easing: 'out',
+            startup: true
+          }
+        };
+
+        const chart = new google.visualization.ColumnChart(chartContainer);
+        chart.draw(gData, options);
+
+      } else if (chartType === "bar-volume") {
+        // C. Horizontal Bar Chart: Volume of visits per sector
+        const gData = new google.visualization.DataTable();
+        gData.addColumn('string', 'Setor');
+        gData.addColumn('number', 'Número de Visitas');
+        gData.addColumn({ type: 'string', role: 'style' });
+
+        sectorNames.forEach((name, idx) => {
+          gData.addRow([name, sectorsMap[name].count, `color: ${colors[idx % colors.length]}`]);
+        });
+
+        const options = {
+          title: 'Volume Absoluto de Visitas Registradas por Setor',
+          fontName: 'Poppins',
+          fontSize: 12,
+          chartArea: { left: '15%', top: '15%', width: '75%', height: '65%' },
+          legend: { position: 'none' },
+          backgroundColor: { fill:'transparent' },
+          hAxis: { 
+            title: 'Total de Visitas', 
+            minValue: 0,
+            gridlines: { count: 5 },
+            textStyle: { color: '#475569', fontSize: 11 }
+          },
+          vAxis: { 
+            title: 'Setores',
+            textStyle: { color: '#475569', fontSize: 11 }
+          },
+          animation: {
+            duration: 450,
+            easing: 'out',
+            startup: true
+          }
+        };
+
+        const chart = new google.visualization.BarChart(chartContainer);
+        chart.draw(gData, options);
+      }
+    }
+  </script>
 </body>
 
 </html>

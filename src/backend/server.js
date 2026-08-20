@@ -1,65 +1,27 @@
 import express from 'express';
-
-import {
-  readReceptionData,
-  saveReceptionData,
-  readGraphData,
-  saveGraphData
-} from "./modules/storage.js";
-
-import { 
-  generateGraphData 
-} from "./modules/statistics.js";
+import cors from 'cors';
+import receptionRouter from './routes/receptionRoutes.js';
+import { getDatabase } from './config/database.js';
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static("src/frontend"));
-
-app.post("/salvar", (req, res) => {
-  try {
-    const newData = req.body;
-
-    const receptionData =
-      readReceptionData();
-
-    receptionData.push(newData);
-
-    saveReceptionData(receptionData);
-
-
-    const graphData =
-      generateGraphData(
-        receptionData
-      );
-
-    saveGraphData(graphData);
-
-    res.json({
-      message: "Salvo com sucesso"
-    });
-
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    res.status(500).json({
-      error: error.message
-    });
-  }
-
+  
+app.get("/", (req, res) => {
+  res.redirect("/pages/index.html");
 });
 
-app.get("/grafico", (req, res) => {
+app.use(receptionRouter);
 
-  const graphData =
-    readGraphData();
-
-  res.json(graphData);
-});
-
-app.listen(3000, () => {
-  console.log("Servidor rodando em http://localhost:3000");
+const PORT = 3000;
+getDatabase().then(() => {
+  console.log("Database initialized successfully.");
+  app.listen(3000, () => {
+    console.log("Servidor rodando em http://localhost:3000");
+  });
+}).catch(err => {
+  console.error("Failed to initialize database:", err);
+  process.exit(1);
 });

@@ -1,103 +1,40 @@
-import { logar } from './modules/auth.js';
+import { logar, checkAuth } from './modules/auth.js';
 
-const btn = document.querySelector('button');
+const btnRegister = document.getElementById('register-btn');
 
-btn?.addEventListener('click', (e) => {
+btnRegister.addEventListener("click", (e) => {
   e.preventDefault();
-  logar();
+  window.location.href = "./register.html";
 });
 
-{/* <html>
-  <body class="index">
-  <div class="page-container">
-    <header>
-      <div class="left-section">
-        <div>
-          <a href="#">
-            <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo_IFC_vertical_Fraiburgo"
-              class="logo-IFC">
-            </img>
-          </a>
-        </div>
-        <div>
-          <a href="#">
-            <h1>
-              Sistema Integrado de Recepção do IFC
-            </h1>
-          </a>
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("logged") === "true") {
+    window.location.href = "./page0.html";
+    return;
+  }
 
-        </div>
-      </div>
-      <nav class="navbar-pages">
-        <ul class="nav-list-pages">
-          <li><a href="#" class="nav-link-reception">Recepção</a></li>
-          <li><a href="#" class="nav-link-graph">Gráfico geral</a></li>
-          <li><a href="#" class="nav-link-graph2">Gráfico dos Setores</a></li>
-        </ul>
-      </nav>
-    </header>
+  const userEl = document.getElementById('user');
+  const passwordEl = document.getElementById('password');
+  const rememberEl = document.getElementById('rememberPass');
+  const form = document.querySelector('.container-login');
+  const savedUser = localStorage.getItem("saved_user");
+  const savedPass = localStorage.getItem("saved_password");
 
-    <section>
-      <div class="left-side">
-        <img src="../assets/img/Logo_IFC_vertical_Fraiburgo.png" alt="Logo_IFC_vertical_Fraiburgo" class="logo">
-        </img>
-        <h1>
-          Sistema Integrado de Recepção do IFC
-        </h1>
-        <p>
-          Bem-vindo! Faça login para acessar o sistema.
-        </p>
-      </div>
+  if (savedUser && userEl) userEl.value = savedUser;
+  if (savedPass && passwordEl) passwordEl.value = savedPass;
 
-      <div class="right-side">
-        <form class="container-login">
-          <h2>Acessar sua conta</h2>
+  if (savedUser && savedPass && rememberEl) rememberEl.checked = true;
 
-          <div class="input-box">
-            <input type="text" placeholder="Login" id="user" required>
-            </input>
-          </div>
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    logar();
+  });
 
-          <div class="input-box">
-            <input type="password" placeholder="Senha" id="password" required>
-            </input>
-          </div>
+  userEl?.addEventListener('input', () => {
+    userEl.style.borderColor = userEl.value.trim() ? '#0f7d3a' : '#ccc';
+  });
 
-          <div class="forgotRemember">
-            <label>
-              <input id="rememberPass" type="checkbox">
-              Lembrar minha senha
-              </input>
-            </label>
-            
-
-            <a class="forgotPassWord" href="#">Esqueci minha senha</a>
-          </div>
-
-          <div class="submit-button">
-            <button>Entrar</button>
-          </div>
-          <div class="register-link">
-            <p>Não tem uma conta? <a>Solicite acesso aqui</a></p>
-          </div>
-        </form>
-      </div>
-
-      <script type="module" src="../assets/js/login.js"></script>
-    </section>
-
-    <script type="module" src="../assets/js/lobby.js"></script>
-    <footer>
-      <nav class="navbar">
-        <ul class="nav-list">
-          <li><a href="#" class="nav-link-contact">Contato</a></li>
-          <li><a href="#" class="nav-link-FAQ">FAQ</a></li>
-          <li><a href="#" class="nav-link-about_system">Sobre o Sistema</a></li>
-        </ul>
-      </nav>
-      <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
-    </footer>
-  </div>
-
-</body>
-</html> */}
+  passwordEl?.addEventListener('input', () => {
+    passwordEl.style.borderColor = passwordEl.value.trim() ? '#0f7d3a' : '#ccc';
+  });
+});

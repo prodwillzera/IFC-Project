@@ -4,89 +4,440 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instituto Federal Catarinense - Inicio</title>
+  <title>IFC - Recepção de Visitantes</title>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="icon" type="image/png" href="../../public/favicon.png">
 </head>
 
 <body class="page1">
   <div class="page-container">
     <header>
       <div class="left-section">
-        <div>
-          <a href="page0.html">
-            <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo_IFC_vertical_Fraiburgo"
-              class="logo-IFC">
-          </a>
-        </div>
-        <div>
-          <a href="page0.html">
-            <h1>
-              Sistema Integrado de Recepção do IFC
-            </h1>
-          </a>
-
-        </div>
+        <a href="page0.html">
+          <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo IFC" class="logo-IFC">
+        </a>
+        <a href="page0.html" style="text-decoration: none;">
+          <h1>Sistema Integrado de Recepção do IFC</h1>
+        </a>
       </div>
       <nav class="navbar-pages">
         <ul class="nav-list-pages">
-          <li><a href="#" class="nav-link-reception">Recepção</a></li>
+          <li><a href="#" class="active">Recepção</a></li>
           <li><a href="page2.html" class="nav-link-graph">Gráfico geral</a></li>
           <li><a href="page3.html" class="nav-link-graph2">Gráfico dos Setores</a></li>
         </ul>
       </nav>
+
+      <div class="user-menu">
+        <div class="user-info">
+          <span class="user-name" id="user-display-name">Carregando...</span>
+          <span class="user-role" id="user-display-role">Recepcionista</span>
+        </div>
+        <button id="logout-btn" class="btn-logout">Sair</button>
+      </div>
     </header>
 
-
     <section>
-      <div>
-        <h2 class="subtitle">Tabela de Recepção</h2>
-        <table style="width:100%">
-          <thead>
-            <tr>
-              <th class="day">Data</th>
-              <th class="name">Nome/Empresa</th>
-              <th class="id-card">CPF</th>
-              <th class="why">Motivo</th>
-              <th class="sector">Setor</th>
-              <th class="entry">Entrada</th>
-              <th class="exit">Saída</th>
-              <th class="score">Avaliação</th>
-            </tr>
-          </thead>
+      <div class="section-header">
+        <div>
+          <h2>Controle Operacional de Recepção</h2>
+          <p>Cadastre visitas e monitore o fluxo de permanência no campus.</p>
+        </div>
+      </div>
 
-          <tbody>
-            <tr>
-              <td><input id="input-day" type="text" class="input-cell" placeholder="DD/MM/YYYY" maxlength="10"></td>
-              <td><input id="input-name" type="text" class="input-cell" placeholder="Nome/Empresa"></td>
-              <td><input id="input-id" type="text" class="input-cell" placeholder="123.456.789-00" maxlength="14"></td>
-              <td><input id="input-why" type="text" class="input-cell" placeholder="Motivo"></td>
-              <td><input id="input-sector" type="text" class="input-cell" placeholder="Setor"></td>
-              <td><input id="input-entry" type="text" class="input-cell" placeholder="HH:MM" maxlength="5"></td>
-              <td><input id="input-exit" type="text" class="input-cell" placeholder="HH:MM" maxlength="5">
-              </td>
-              <td><input id="input-score" type="text" class="input-cell" placeholder="1-5" maxlength="1"
-                  inputmode="numeric"></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="reception-grid">
+        <!-- LEFT: Registration Form -->
+        <div class="form-card">
+          <h3>Novo Registro de Recepção</h3>
+          <form id="reception-form" autocomplete="off">
+            <div class="input-box">
+              <label for="input-day">Data *</label>
+              <input id="input-day" type="text" placeholder="DD/MM/YYYY" maxlength="10" required>
+            </div>
+            <div class="input-box">
+              <label for="input-name">Nome Completo *</label>
+              <input id="input-name" type="text" placeholder="Nome do visitante/empresa" required>
+            </div>
+            <div class="input-box">
+              <label for="input-id">CPF</label>
+              <input id="input-id" type="text" placeholder="123.456.789-00" maxlength="14">
+            </div>
+            <div class="input-box">
+              <label for="input-why">Motivo da Visita *</label>
+              <input id="input-why" type="text" placeholder="Ex: Reunião, Entrega" required>
+            </div>
+            <div class="input-box">
+              <label for="input-sector">Setor de Destino *</label>
+              <select id="input-sector" required>
+                <option value="">Selecione o Setor</option>
+                <option value="TI">TI (Tecnologia da Informação)</option>
+                <option value="SISAE">SISAE</option>
+                <option value="Almoxarifado">Almoxarifado</option>
+                <option value="Cantina">Cantina</option>
+                <option value="Financeiro">Financeiro</option>
+                <option value="Direção">Direção Geral</option>
+                <option value="Secretaria">Secretaria</option>
+                <option value="Biblioteca">Biblioteca</option>
+              </select>
+            </div>
+            <div class="input-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label for="input-entry">Entrada *</label>
+                <input id="input-entry" type="text" placeholder="HH:MM" maxlength="5" required>
+              </div>
+              <div>
+                <label for="input-exit">Saída *</label>
+                <input id="input-exit" type="text" placeholder="HH:MM" maxlength="5" required>
+              </div>
+            </div>
+            <div class="input-box">
+              <label for="input-score">Avaliação do Atendimento (1-5) *</label>
+              <select id="input-score" required>
+                <option value="5">5 ★ Excelente</option>
+                <option value="4">4 ★ Muito Bom</option>
+                <option value="3">3 ★ Regular</option>
+                <option value="2">2 ★ Ruim</option>
+                <option value="1">1 ★ Insatisfatório</option>
+              </select>
+            </div>
+
+            <!-- Advanced optional fields collapse -->
+            <details style="margin: 12px 0 20px; font-size: 0.85rem; color: var(--text-muted);">
+              <summary style="cursor: pointer; font-weight: 600; color: var(--primary); outline: none;">Campos Opcionais Avançados</summary>
+              <div style="padding-top: 12px; display: flex; flex-direction: column; gap: 12px;">
+                <div class="input-box" style="margin-bottom:0;">
+                  <label for="input-phone">Telefone</label>
+                  <input id="input-phone" type="text" placeholder="(49) 99999-9999">
+                </div>
+                <div class="input-box" style="margin-bottom:0;">
+                  <label for="input-company">Empresa Origem</label>
+                  <input id="input-company" type="text" placeholder="Razão social">
+                </div>
+                <div class="input-box" style="margin-bottom:0;">
+                  <label for="input-host">Responsável p/ Atendimento</label>
+                  <input id="input-host" type="text" placeholder="Servidor/Colaborador">
+                </div>
+                <div class="input-box" style="margin-bottom:0;">
+                  <label for="input-doc">Documento Identificador (RG/CNH)</label>
+                  <input id="input-doc" type="text" placeholder="RG, CNH, etc.">
+                </div>
+                <div class="input-box" style="margin-bottom:0;">
+                  <label for="input-status">Status da Visita</label>
+                  <select id="input-status">
+                    <option value="Concluído">Concluído</option>
+                    <option value="Ativo">Ativo (Em andamento)</option>
+                  </select>
+                </div>
+                <div class="input-box" style="margin-bottom:0;">
+                  <label for="input-notes">Observações Adicionais</label>
+                  <textarea id="input-notes" placeholder="Detalhes adicionais da visita..." rows="2"></textarea>
+                </div>
+              </div>
+            </details>
+
+            <button type="submit" id="submitbtn" class="submit-button-page1">Cadastrar Visita</button>
+          </form>
+        </div>
+
+        <!-- RIGHT: Table and Controls Card -->
+        <div class="table-card">
+          <!-- Toolbar (Search & Filter) -->
+          <div class="table-toolbar">
+            <div class="search-box">
+              <input type="text" id="table-search" placeholder="Buscar por nome, CPF ou motivo...">
+            </div>
+            
+            <div class="filter-group">
+              <select id="filter-sector">
+                <option value="">Todos os Setores</option>
+                <option value="TI">TI</option>
+                <option value="SISAE">SISAE</option>
+                <option value="Almoxarifado">Almoxarifado</option>
+                <option value="Cantina">Cantina</option>
+                <option value="Financeiro">Financeiro</option>
+                <option value="Direção">Direção Geral</option>
+                <option value="Secretaria">Secretaria</option>
+                <option value="Biblioteca">Biblioteca</option>
+              </select>
+
+              <select id="filter-score">
+                <option value="">Todas as Notas</option>
+                <option value="5">5 Estrelas</option>
+                <option value="4">4 Estrelas</option>
+                <option value="3">3 Estrelas</option>
+                <option value="2">2 Estrelas</option>
+                <option value="1">1 Estrela</option>
+              </select>
+            </div>
+
+            <div class="toolbar-actions">
+              <button class="btn-action" id="btn-export-csv" title="Exportar para Excel/CSV">
+                📥 Exportar CSV
+              </button>
+              <button class="btn-action" id="btn-print-report" title="Imprimir Relatório">
+                🖨️ Imprimir
+              </button>
+            </div>
+          </div>
+
+          <!-- Table Content -->
+          <div class="reception-table-container">
+            <table class="reception-table" id="data-table">
+              <thead>
+                <tr>
+                  <th data-sort="dia" style="width: 110px;">Data ⇅</th>
+                  <th data-sort="nome">Visitante ⇅</th>
+                  <th data-sort="cpf" style="width: 130px;">CPF ⇅</th>
+                  <th data-sort="setor" style="width: 100px;">Setor ⇅</th>
+                  <th data-sort="motivo">Motivo ⇅</th>
+                  <th data-sort="status" style="width: 110px;">Status ⇅</th>
+                  <th data-sort="avaliacao" style="width: 90px; text-align: center;">Avaliação ⇅</th>
+                  <th class="no-sort" style="width: 120px; text-align: center;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                <!-- Injected via JavaScript -->
+                <tr class="empty-state">
+                  <td colspan="8">Carregando registros...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Control Footer -->
+          <div class="table-pagination">
+            <div class="pagination-info" id="pagination-info">
+              Exibindo 0 de 0 registros
+            </div>
+            <div class="pagination-controls">
+              <button class="btn-page" id="btn-prev-page" disabled>Anterior</button>
+              <span class="page-num-indicator" id="page-num">Pág. 1</span>
+              <button class="btn-page" id="btn-next-page" disabled>Próximo</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="div-button">
-        <input type="submit" id="submitbtn" class="submit-button-page1" value="Cadastrar">
-      </div>
-      <script type="module" src="../assets/js/dashboard.js"></script>
     </section>
+
     <footer>
       <nav class="navbar">
         <ul class="nav-list">
-          <li><a href="#" class="nav-link-contact">Contato</a></li>
-          <li><a href="#" class="nav-link-FAQ">FAQ</a></li>
-          <li><a href="#" class="nav-link-about_system">Sobre o Sistema</a></li>
+          <li><a href="#" onclick="alert('Suporte IFC: ti.fraiburgo@ifc.edu.br')">Contato</a></li>
+          <li><a href="#" onclick="alert('FAQ: Sistema de Recepção IFC v1.0 MVP')">FAQ</a></li>
+          <li><a href="#" onclick="alert('Sistema Desenvolvido para a MICTI - IFC Fraiburgo.')">Sobre o Sistema</a></li>
         </ul>
       </nav>
       <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
     </footer>
   </div>
 
+  <!-- ==========================================================================
+       MODAL POPUPS FOR CRUD & DETAIL VIEW
+       ========================================================================== -->
+
+  <!-- Modal View Details -->
+  <div class="modal-overlay" id="modal-view">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Detalhes da Visita / Recepção</h3>
+        <button class="modal-close" onclick="closeModal('modal-view')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-list">
+          <div class="detail-row">
+            <span class="detail-label">ID:</span>
+            <span class="detail-val" id="detail-id">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Data:</span>
+            <span class="detail-val" id="detail-date">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Nome/Empresa:</span>
+            <span class="detail-val" id="detail-name">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">CPF:</span>
+            <span class="detail-val" id="detail-cpf">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Telefone:</span>
+            <span class="detail-val" id="detail-phone">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Origem/Empresa:</span>
+            <span class="detail-val" id="detail-company">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Motivo da Visita:</span>
+            <span class="detail-val" id="detail-why">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Setor Destino:</span>
+            <span class="detail-val" id="detail-sector">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Host/Responsável:</span>
+            <span class="detail-val" id="detail-host">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Doc. Identificador:</span>
+            <span class="detail-val" id="detail-doc">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Entrada:</span>
+            <span class="detail-val" id="detail-entry">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Saída:</span>
+            <span class="detail-val" id="detail-exit">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Status da Visita:</span>
+            <span class="detail-val" id="detail-status">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Avaliação:</span>
+            <span class="detail-val" id="detail-score">-</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px;">
+            <span class="detail-label">Observações Adicionais:</span>
+            <div class="detail-val-textarea" id="detail-notes">Sem observações.</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('modal-view')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Record -->
+  <div class="modal-overlay" id="modal-edit">
+    <div class="modal-card" style="max-width:600px;">
+      <div class="modal-header">
+        <h3>Editar Registro de Recepção</h3>
+        <button class="modal-close" onclick="closeModal('modal-edit')">&times;</button>
+      </div>
+      <form id="edit-form" autocomplete="off">
+        <input type="hidden" id="edit-id">
+        <div class="modal-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="input-box" style="grid-column: span 2;">
+            <label for="edit-name">Nome Completo *</label>
+            <input id="edit-name" type="text" required>
+          </div>
+          <div class="input-box">
+            <label for="edit-day">Data *</label>
+            <input id="edit-day" type="text" maxlength="10" required>
+          </div>
+          <div class="input-box">
+            <label for="edit-cpf">CPF</label>
+            <input id="edit-cpf" type="text" maxlength="14">
+          </div>
+          <div class="input-box">
+            <label for="edit-why">Motivo da Visita *</label>
+            <input id="edit-why" type="text" required>
+          </div>
+          <div class="input-box">
+            <label for="edit-sector">Setor de Destino *</label>
+            <select id="edit-sector" required>
+              <option value="TI">TI</option>
+              <option value="SISAE">SISAE</option>
+              <option value="Almoxarifado">Almoxarifado</option>
+              <option value="Cantina">Cantina</option>
+              <option value="Financeiro">Financeiro</option>
+              <option value="Direção">Direção Geral</option>
+              <option value="Secretaria">Secretaria</option>
+              <option value="Biblioteca">Biblioteca</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <label for="edit-entry">Hora Entrada *</label>
+            <input id="edit-entry" type="text" maxlength="5" required>
+          </div>
+          <div class="input-box">
+            <label for="edit-exit">Hora Saída *</label>
+            <input id="edit-exit" type="text" maxlength="5" required>
+          </div>
+          <div class="input-box">
+            <label for="edit-score">Avaliação (1-5) *</label>
+            <select id="edit-score" required>
+              <option value="5">5 ★ Excelente</option>
+              <option value="4">4 ★ Muito Bom</option>
+              <option value="3">3 ★ Regular</option>
+              <option value="2">2 ★ Ruim</option>
+              <option value="1">1 ★ Insatisfatório</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <label for="edit-status">Status *</label>
+            <select id="edit-status" required>
+              <option value="Concluído">Concluído</option>
+              <option value="Ativo">Ativo (Em andamento)</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <label for="edit-phone">Telefone</label>
+            <input id="edit-phone" type="text">
+          </div>
+          <div class="input-box">
+            <label for="edit-company">Empresa Origem</label>
+            <input id="edit-company" type="text">
+          </div>
+          <div class="input-box">
+            <label for="edit-host">Responsável p/ Atendimento</label>
+            <input id="edit-host" type="text">
+          </div>
+          <div class="input-box">
+            <label for="edit-doc">Documento Identificador</label>
+            <input id="edit-doc" type="text">
+          </div>
+          <div class="input-box" style="grid-column: span 2; margin-bottom: 0;">
+            <label for="edit-notes">Observações Adicionais</label>
+            <textarea id="edit-notes" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal('modal-edit')">Cancelar</button>
+          <button type="submit" class="btn-primary">Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Delete Confirmation -->
+  <div class="modal-overlay" id="modal-delete">
+    <div class="modal-card" style="max-width: 400px;">
+      <div class="modal-header" style="background-color: #fee2e2; border-bottom-color: #fca5a5;">
+        <h3 style="color: var(--danger)">Excluir Registro de Visita</h3>
+        <button class="modal-close" onclick="closeModal('modal-delete')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-main)">
+          Você tem certeza absoluta que deseja excluir o registro de recepção de <strong id="delete-record-name">-</strong>?
+        </p>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">
+          Esta operação não poderá ser desfeita.
+        </p>
+        <input type="hidden" id="delete-id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="closeModal('modal-delete')">Voltar</button>
+        <button type="button" class="btn-danger" id="btn-confirm-delete">Sim, Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../assets/js/dashboard.js"></script>
+  <script type="text/javascript">
+    // Simple helper functions for modal visibility bound to window
+    window.openModal = function(id) {
+      document.getElementById(id).classList.add('active');
+    };
+    window.closeModal = function(id) {
+      document.getElementById(id).classList.remove('active');
+    };
+  </script>
 </body>
 
 </html>

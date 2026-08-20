@@ -1,0 +1,8 @@
+{
+  "name": "Sistema de Recepção IFC",
+  "description": "Sistema de recepção, registro de visitas e avaliações do Instituto Federal Catarinense (IFC). Confere dados de atendimento geral e de setores através de gráficos integrados.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -15,7 +15,7 @@ export function validateData(day) {
 }
 
 export function validateID(cpf) {
-  if (!cpf) return false;
+  if (!cpf || cpf.trim() === '') return true;
   cpf = cpf.replace(/\D/g, '');
 
   if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;

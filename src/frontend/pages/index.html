@@ -4,46 +4,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instituto Federal Catarinense - Recepção</title>
+  <title>IFC - Login</title>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="icon" type="image/png" href="../../public/favicon.png">
 </head>
 
 <body class="index">
   <div class="page-container">
     <header>
       <div class="left-section">
-        <div>
-          <a href="#">
-            <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo_IFC_vertical_Fraiburgo"
-              class="logo-IFC">
-          </a>
-        </div>
-        <div>
-          <a href="#">
-            <h1>
-              Sistema Integrado de Recepção do IFC
-            </h1>
-          </a>
-
-        </div>
+        <a href="#">
+          <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo IFC" class="logo-IFC">
+        </a>
+        <a href="#" style="text-decoration: none;">
+          <h1>Sistema Integrado de Recepção do IFC</h1>
+        </a>
       </div>
       <nav class="navbar-pages">
         <ul class="nav-list-pages">
-          <li><a href="#" class="nav-link-reception">Recepção</a></li>
-          <li><a href="#" class="nav-link-graph">Gráfico geral</a></li>
-          <li><a href="#" class="nav-link-graph2">Gráfico dos Setores</a></li>
+          <li><a href="#" class="active">Acesso</a></li>
         </ul>
       </nav>
     </header>
 
-    <section>
+    <section class="index-section">
       <div class="left-side">
-        <img src="../assets/img/Logo_IFC_vertical_Fraiburgo.png" alt="Logo_IFC_vertical_Fraiburgo" class="logo">
-        <h1>
-          Sistema Integrado de Recepção do IFC
-        </h1>
+        <img src="../assets/img/Logo_IFC_vertical_Fraiburgo.png" alt="Logo IFC Fraiburgo" class="logo">
+        <h1>Sistema Integrado de Recepção</h1>
         <p>
-          Bem-vindo! Faça login para acessar o sistema.
+          Gerencie o controle de visitas, registre entradas e saídas de colaboradores e visitantes, avalie atendimentos e analise estatísticas de desempenho institucional em tempo real.
         </p>
       </div>
 
@@ -52,47 +41,46 @@
           <h2>Acessar sua conta</h2>
 
           <div class="input-box">
-            <input type="text" placeholder="Login" id="user" required>
+            <label for="user">Usuário ou E-mail</label>
+            <input type="text" placeholder="Digite seu login (ex: admin)" id="user" required autocomplete="username">
           </div>
 
           <div class="input-box">
-            <input type="password" placeholder="Senha" id="password" required>
+            <label for="password">Senha</label>
+            <input type="password" placeholder="Digite sua senha (ex: admin)" id="password" required autocomplete="current-password">
           </div>
 
           <div class="forgotRemember">
             <label>
               <input id="rememberPass" type="checkbox">
-              Lembrar minha senha
+              Lembrar meus dados
             </label>
-
-            <a class="forgotPassWord" href="#">Esqueci minha senha</a>
+            <a class="forgotPassWord" href="#" onclick="alert('Entre em contato com o suporte técnico do sisae.fraiburgo@ifc.edu.br')">Esqueci minha senha</a>
           </div>
 
           <div class="submit-button">
-            <button>Entrar</button>
+            <button type="submit">Entrar no Sistema</button>
           </div>
           <div class="register-link">
-            <p>Não tem uma conta? <a>Solicite acesso aqui</a></p>
+            <p>Novo por aqui? <a href="#" id="register-btn">Solicite acesso aqui</a></p>
           </div>
         </form>
       </div>
-
-      <script type="module" src="../assets/js/login.js"></script>
     </section>
 
-    <script type="module" src="../assets/js/lobby.js"></script>
     <footer>
       <nav class="navbar">
         <ul class="nav-list">
-          <li><a href="#" class="nav-link-contact">Contato</a></li>
-          <li><a href="#" class="nav-link-FAQ">FAQ</a></li>
-          <li><a href="#" class="nav-link-about_system">Sobre o Sistema</a></li>
+          <li><a href="#" onclick="alert('Suporte IFC: sisae.fraiburgo@ifc.edu.br')">Contato</a></li>
+          <li><a href="#" onclick="alert('FAQ: Sistema de Recepção IFC v1.0 MVP')">FAQ</a></li>
+          <li><a href="#" onclick="alert('Sistema Desenvolvido para a recepção - IFC Fraiburgo.')">Sobre o Sistema</a></li>
         </ul>
       </nav>
       <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
     </footer>
   </div>
 
+  <script type="module" src="../assets/js/login.js"></script>
 </body>
 
 </html>

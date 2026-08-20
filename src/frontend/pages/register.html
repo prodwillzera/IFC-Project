@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IFC - Login</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="icon" type="image/png" href="../../public/favicon.png">
+</head>
+
+<body class="register">
+  <div class="page-container">
+    <header>
+      <div class="left-section">
+        <a href="#">
+          <img src="../assets/img/Instituto_Federal_Marca_2015.svg.png" alt="Logo IFC" class="logo-IFC">
+        </a>
+        <a href="#" style="text-decoration: none;">
+          <h1>Sistema Integrado de Recepção do IFC</h1>
+        </a>
+      </div>
+      <nav class="navbar-pages">
+        <ul class="nav-list-pages">
+          <li><a href="#" class="active">Acesso</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="register-section">
+      <div class="left-side">
+        <img src="../assets/img/Logo_IFC_vertical_Fraiburgo.png" alt="Logo IFC Fraiburgo" class="logo">
+        <h1>Sistema Integrado de Recepção</h1>
+        <p>
+          Solicite acesso ao sistema de recepção do IFC Fraiburgo. Preencha o formulário ao lado com seu nome e uma mensagem para o administrador do sistema. O administrador entrará em contato com você para fornecer as credenciais de acesso.
+        </p>
+      </div>
+
+      <div class="right-side">
+        <form class="container-register">
+          <h2>Solicitar acesso</h2>
+
+          <div class="input-box">
+            <label for="name">Nome</label>
+            <input type="text" placeholder="Digite seu nome" id="name">
+          </div>
+
+          <div class="input-box">
+            <label for="message">Mensagem</label>
+            <textarea placeholder="Digite sua mensagem (ex: Quero solicitar acesso)" id="message" rows="4"></textarea>
+          </div>
+
+          <div class="submit-button">
+            <button type="submit" href="#" id="whatsapp-button">Solicite acesso via WhatsApp</button>
+          </div>
+
+          <div class="backLogin">
+            <a href="#" id="backLogin">Voltar para pagina de login</a>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <nav class="navbar">
+        <ul class="nav-list">
+          <li><a href="#" onclick="alert('Suporte IFC: ti.fraiburgo@ifc.edu.br')">Contato</a></li>
+          <li><a href="#" onclick="alert('FAQ: Sistema de Recepção IFC v1.0 MVP')">FAQ</a></li>
+          <li><a href="#" onclick="alert('Sistema Desenvolvido para a MICTI - IFC Fraiburgo.')">Sobre o Sistema</a></li>
+        </ul>
+      </nav>
+      <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
+    </footer>
+  </div>
+
+  <script type="module" src="../assets/js/register.js"></script>
+</body>
+
+</html>

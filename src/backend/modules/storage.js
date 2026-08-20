@@ -5,15 +5,6 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const receptionPath = path.join(
-  __dirname,
-  "..",
-  "..",
-  "..",
-  "data",
-  "dataReception.json"
-);
-
 const graphPath = path.join(
   __dirname,
   "..",
@@ -23,28 +14,36 @@ const graphPath = path.join(
   "data.json"
 );
 
-function readReceptionData() {
-  if (!fs.existsSync(receptionPath)) return [];
-
-  const content = fs.readFileSync(receptionPath, "utf8");
-
-  return content ? JSON.parse(content) : [];
-}
-
-function saveReceptionData(data) {
-  fs.writeFileSync(receptionPath, JSON.stringify(data, null, 2));
-}
-
 function readGraphData() {
   if (!fs.existsSync(graphPath)) return [];
-
-  const content = fs.readFileSync(graphPath, "utf8");
-
-  return content ? JSON.parse(content) : [];
+  try {
+    const content = fs.readFileSync(graphPath, "utf8");
+    return content ? JSON.parse(content) : [];
+  } catch (err) {
+    console.error("Error reading graph data:", err);
+    return [];
+  }
 }
 
 function saveGraphData(data) {
-  fs.writeFileSync(graphPath, JSON.stringify(data, null, 2));
+  try {
+    const dataDir = path.dirname(graphPath);
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    fs.writeFileSync(graphPath, JSON.stringify(data, null, 2), "utf8");
+  } catch (err) {
+    console.error("Error saving graph data:", err);
+  }
+}
+
+// Deprecated stubs to avoid any broken imports
+function readReceptionData() {
+  return [];
+}
+
+function saveReceptionData(data) {
+  // No-op
 }
 
 export {
@@ -53,33 +52,3 @@ export {
   readGraphData,
   saveGraphData
 };
-
-/*         let data = [];
-
-        if(fs.existsSync(filePath)) {
-            const content = fs.readFileSync(filePath, "utf8");
-
-            if(content) {
-                data = JSON.parse(content);
-            }
-        }
-
-        data.push(newData);
-
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-
-        let graphData = [];
-
-        if (fs.existsSync(graphPath)) {
-            const content = fs.readFileSync(graphPath, "utf8");
-
-            if (content) {
-                graphData = JSON.parse(content);
-            }
-        }
-
-        fs.writeFileSync(graphPath,JSON.stringify(graphData, null, 2));
-    
-        const content = fs.readFileSync(graphPath, "utf8");
-
-        const data = JSON.parse(content); */
