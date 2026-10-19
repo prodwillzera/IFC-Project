@@ -104,9 +104,9 @@
     <footer>
       <nav class="navbar">
         <ul class="nav-list">
-          <li><a href="#" onclick="alert('Suporte IFC: ti.fraiburgo@ifc.edu.br')">Contato</a></li>
-          <li><a href="https://github.com/prodwillzera/IFC-Project" target="_blank" rel="noopener noreferrer">FAQ</a></li>
-          <li><a href="https://github.com/prodwillzera/IFC-Project" target="_blank" rel="noopener noreferrer">Sobre o Sistema</a></li>
+          <li><a href="#" data-contact="ti">Contato</a></li>
+          <li><a href="#" data-external-link="faq">FAQ</a></li>
+          <li><a href="#" data-external-link="about">Sobre o Sistema</a></li>
         </ul>
       </nav>
       <p class="footer1">&copy; 2026 Instituto Federal Catarinense & William Lopes Batista. Todos os direitos reservados.</p>
@@ -518,6 +518,7 @@
       chart.draw(gData, options);
     }
   </script>
+  <script type="module" src="../assets/js/modules/externalLinks.js"></script>
 </body>
 
 </html>
