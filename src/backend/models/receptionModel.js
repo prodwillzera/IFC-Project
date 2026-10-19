@@ -1,23 +1,37 @@
 import { getDatabase } from '../config/database.js';
 
 export class ReceptionModel {
+
   static async getAll() {
     const db = await getDatabase();
-    return await db.all('SELECT * FROM receptions ORDER BY created_at DESC');
+
+    const [rows] = await db.query(
+      'SELECT * FROM receptions ORDER BY created_at DESC'
+    );
+
+    return rows;
   }
 
   static async getById(id) {
     const db = await getDatabase();
-    return await db.get('SELECT * FROM receptions WHERE id = ?', id);
+
+    const [rows] = await db.query(
+      'SELECT * FROM receptions WHERE id = ?',
+      [id]
+    );
+
+    return rows[0] || null;
   }
 
   static async create(data) {
     const db = await getDatabase();
-    const id = data.id || `rec_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    
-    await db.run(
+
+    const id = data.id ||
+      `rec_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+    await db.query(
       `INSERT INTO receptions (
-        id, dia, nome, cpf, motivo, setor, entrada, saida, avaliacao, 
+        id, dia, nome, cpf, motivo, setor, entrada, saida, avaliacao,
         telefone, empresa, responsavel, observacoes, documento, status, created_at
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -29,7 +43,11 @@ export class ReceptionModel {
         data.setor || '',
         data.entrada || '',
         data.saida || '',
-        parseInt(data.avaliacao) || 5,
+        data.avaliacao === null ||
+        data.avaliacao === undefined ||
+        data.avaliacao === ''
+            ? null
+            : parseInt(data.avaliacao),
         data.telefone || '',
         data.empresa || '',
         data.responsavel || '',
@@ -45,12 +63,12 @@ export class ReceptionModel {
 
   static async update(id, data) {
     const db = await getDatabase();
-    
-    await db.run(
-      `UPDATE receptions SET 
-        dia = ?, nome = ?, cpf = ?, motivo = ?, setor = ?, 
-        entrada = ?, saida = ?, avaliacao = ?, telefone = ?, 
-        empresa = ?, responsavel = ?, observacoes = ?, 
+
+    await db.query(
+      `UPDATE receptions SET
+        dia = ?, nome = ?, cpf = ?, motivo = ?, setor = ?,
+        entrada = ?, saida = ?, avaliacao = ?, telefone = ?,
+        empresa = ?, responsavel = ?, observacoes = ?,
         documento = ?, status = ?
       WHERE id = ?`,
       [
@@ -61,7 +79,11 @@ export class ReceptionModel {
         data.setor,
         data.entrada,
         data.saida,
-        parseInt(data.avaliacao) || 5,
+        data.avaliacao === null ||
+        data.avaliacao === undefined ||
+        data.avaliacao === ''
+            ? null
+            : parseInt(data.avaliacao),
         data.telefone || '',
         data.empresa || '',
         data.responsavel || '',
@@ -77,10 +99,18 @@ export class ReceptionModel {
 
   static async delete(id) {
     const db = await getDatabase();
-    const record = await this.getById(id);
-    if (!record) return false;
 
-    await db.run('DELETE FROM receptions WHERE id = ?', id);
+    const record = await this.getById(id);
+
+    if (!record) {
+      return false;
+    }
+
+    await db.query(
+      'DELETE FROM receptions WHERE id = ?',
+      [id]
+    );
+
     return true;
   }
 }

@@ -47,8 +47,11 @@
           <p style="font-size: 0.85rem; color: var(--text-muted);">Análise consolidada mensal das avaliações do campus.</p>
         </div>
 
-        <!-- Dynamic Filters Bar -->
         <div class="chart-filters">
+          <select id="filter-year">
+            <option value="">Todos os Anos</option>
+          </select>
+
           <select id="filter-month">
             <option value="">Todos os Meses</option>
             <option value="01">Janeiro</option>
@@ -65,21 +68,10 @@
             <option value="12">Dezembro</option>
           </select>
 
-          <select id="filter-sector">
-            <option value="">Todos os Setores</option>
-            <option value="TI">TI</option>
-            <option value="SISAE">SISAE</option>
-            <option value="Almoxarifado">Almoxarifado</option>
-            <option value="Cantina">Cantina</option>
-            <option value="Financeiro">Financeiro</option>
-            <option value="Direção">Direção Geral</option>
-            <option value="Secretaria">Secretaria</option>
-            <option value="Biblioteca">Biblioteca</option>
-          </select>
+          <select id="filter-sector"></select>
         </div>
       </div>
 
-      <!-- Quick KPI Stats Above the Chart -->
       <div class="chart-stats-grid">
         <div class="chart-stats-card">
           <span class="lbl">Média de Satisfação</span>
@@ -113,22 +105,42 @@
       <nav class="navbar">
         <ul class="nav-list">
           <li><a href="#" onclick="alert('Suporte IFC: ti.fraiburgo@ifc.edu.br')">Contato</a></li>
-          <li><a href="#" onclick="alert('FAQ: Sistema de Recepção IFC v1.0 MVP')">FAQ</a></li>
-          <li><a href="#" onclick="alert('Sistema Desenvolvido para a MICTI - IFC Fraiburgo.')">Sobre o Sistema</a></li>
+          <li><a href="https://github.com/prodwillzera/IFC-Project" target="_blank" rel="noopener noreferrer">FAQ</a></li>
+          <li><a href="https://github.com/prodwillzera/IFC-Project" target="_blank" rel="noopener noreferrer">Sobre o Sistema</a></li>
         </ul>
       </nav>
-      <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
+      <p class="footer1">&copy; 2026 Instituto Federal Catarinense & William Lopes Batista. Todos os direitos reservados.</p>
     </footer>
   </div>
 
   <script type="module">
     import { checkAuth, getLoggedUser, logout } from '../assets/js/modules/auth.js';
+    import { SETORES } from '../assets/js/modules/sectors.js';
     import { Toast } from '../assets/js/modules/toast.js';
+
+    function preencherFiltroSetores() {
+      const select = document.getElementById("filter-sector");
+
+      if (!select) return;
+
+      select.innerHTML = '<option value="">Todos os Setores</option>';
+
+      SETORES.forEach(setor => {
+        const option = document.createElement("option");
+        option.value = setor;
+        option.textContent = setor;
+        select.appendChild(option);
+      });
+    }
 
     document.addEventListener("DOMContentLoaded", () => {
       // Auth Guard
+      preencherFiltroSetores();
+
       checkAuth();
+      
       const user = getLoggedUser();
+      
       if (user) {
         document.getElementById("user-display-name").textContent = user.name;
         document.getElementById("user-display-role").textContent = user.role;
@@ -151,7 +163,11 @@
         if (!response.ok) throw new Error("Falha ao obter registros.");
         rawVisitsData = await response.json();
 
+        // Populate dynamic Year filter options based on available data
+        populateYearFilter();
+
         // Listeners for filters to trigger instant re-draw
+        document.getElementById("filter-year").addEventListener("change", processAndDraw);
         document.getElementById("filter-month").addEventListener("change", processAndDraw);
         document.getElementById("filter-sector").addEventListener("change", processAndDraw);
 
@@ -166,159 +182,339 @@
       }
     }
 
-    function processAndDraw() {
-      const monthFilter = document.getElementById("filter-month").value;
-      const sectorFilter = document.getElementById("filter-sector").value;
+    function populateYearFilter() {
+      const yearSelect = document.getElementById("filter-year");
+      if (!yearSelect) return;
 
-      // 1. Filter raw visits
-      const filtered = rawVisitsData.filter(item => {
-        if (!item.dia) return false;
-        
-        // Parse month (DD/MM/YYYY -> parts[1])
-        const parts = item.dia.split('/');
-        const itemMonth = parts[1]; // "05", "11", etc.
-
-        const matchesMonth = !monthFilter || itemMonth === monthFilter;
-        const matchesSector = !sectorFilter || item.setor === sectorFilter;
-
-        return matchesMonth && matchesSector;
-      });
-
-      // 2. Compute KPI Metrics Card values
-      let sum = 0, count = 0, max = 0, min = 5;
-      filtered.forEach(item => {
-        const score = parseFloat(item.avaliacao);
-        if (!isNaN(score) && score > 0) {
-          sum += score;
-          count++;
-          if (score > max) max = score;
-          if (score < min) min = score;
+      const years = new Set();
+      rawVisitsData.forEach(item => {
+        if (item.dia) {
+          const parts = item.dia.split('/');
+          if (parts.length === 3 && parts[2]) {
+            years.add(parts[2].trim());
+          }
         }
       });
-      if (count === 0) min = 0;
 
-      const avg = count > 0 ? (sum / count).toFixed(1) : "0.0";
+      const sortedYears = Array.from(years).sort();
+      // Keep "Todos os Anos" as first option
+      yearSelect.innerHTML = '<option value="">Todos os Anos</option>';
+      sortedYears.forEach(year => {
+          const opt = document.createElement("option");
+          opt.value = year;
+          opt.textContent = year;
+          yearSelect.appendChild(opt);
+        });
+      }
 
-      document.getElementById("stat-avg").textContent = `${avg} ★`;
-      document.getElementById("stat-count").textContent = count;
-      document.getElementById("stat-max").textContent = max;
-      document.getElementById("stat-min").textContent = min;
+      function processAndDraw() {
+      const yearFilter =
+        document.getElementById("filter-year")?.value || "";
 
-      // 3. Aggregate data for General Column Chart
-      // Group evaluations by Month and Sector
+      const monthFilter =
+        document.getElementById("filter-month")?.value || "";
+
+      const sectorFilter =
+        document.getElementById("filter-sector")?.value || "";
+
+      const filtered = rawVisitsData.filter(item => {
+        if (!item.dia) return false;
+
+        const parts = item.dia.split('/');
+
+        if (parts.length !== 3) return false;
+
+        const itemMonth = parts[1];
+        const itemYear = parts[2].trim();
+
+        const matchesYear =
+          !yearFilter || itemYear === yearFilter;
+
+        const matchesMonth =
+          !monthFilter || itemMonth === monthFilter;
+
+        const matchesSector =
+          !sectorFilter || item.setor === sectorFilter;
+
+        return matchesYear && matchesMonth && matchesSector;
+      });
+
+
+      // ===============================
+      // AVALIAÇÕES VÁLIDAS
+      // ===============================
+
+      const validRatings = filtered
+        .map(item => parseFloat(item.avaliacao))
+        .filter(score =>
+          !isNaN(score) &&
+          score >= 1 &&
+          score <= 5
+        );
+
+
+      const avg =
+        validRatings.length > 0
+          ? (
+              validRatings.reduce((a, b) => a + b, 0) /
+              validRatings.length
+            ).toFixed(1)
+          : null;
+
+
+      const max =
+        validRatings.length > 0
+          ? Math.max(...validRatings)
+          : null;
+
+
+      const min =
+        validRatings.length > 0
+          ? Math.min(...validRatings)
+          : null;
+
+
+      // ===============================
+      // CARDS
+      // ===============================
+
+      document.getElementById("stat-avg").textContent =
+        avg !== null ? `${avg} ★` : "—";
+
+      // Aqui é TOTAL DE VISITANTES,
+      // não quantidade de avaliações
+      document.getElementById("stat-count").textContent =
+        filtered.length;
+
+      document.getElementById("stat-max").textContent =
+        max ?? "—";
+
+      document.getElementById("stat-min").textContent =
+        min ?? "—";
+
+
+      // ===============================
+      // AGRUPAR POR MÊS
+      // ===============================
+
       const monthsMap = {
-        "01": "jan", "02": "fev", "03": "mar", "04": "abr",
-        "05": "mai", "06": "jun", "07": "jul", "08": "ago",
-        "09": "set", "10": "out", "11": "nov", "12": "dez"
+        "01": "jan",
+        "02": "fev",
+        "03": "mar",
+        "04": "abr",
+        "05": "mai",
+        "06": "jun",
+        "07": "jul",
+        "08": "ago",
+        "09": "set",
+        "10": "out",
+        "11": "nov",
+        "12": "dez"
       };
 
-      const monthKeys = Object.keys(monthsMap); // ["01", "02", ...]
 
-      // Determine active sectors in filtered visits to populate columns
-      const activeSectors = [...new Set(filtered.map(i => i.setor))].filter(Boolean);
-      if (activeSectors.length === 0) {
+      const periods = {};
+
+
+      filtered.forEach(item => {
+        const parts = item.dia.split('/');
+
+        if (parts.length !== 3) return;
+
+        const month = parts[1].padStart(2, '0');
+        const year = parts[2].trim();
+
+        const key = `${year}-${month}`;
+
+
+        if (!periods[key]) {
+          periods[key] = {
+            visits: 0,
+            sumRatings: 0,
+            ratingCount: 0
+          };
+        }
+
+
+        // Cada registro conta como atendimento
+        periods[key].visits++;
+
+
+        // Somente avaliações reais entram na média
+        const rating = parseFloat(item.avaliacao);
+
+        if (
+          !isNaN(rating) &&
+          rating >= 1 &&
+          rating <= 5
+        ) {
+          periods[key].sumRatings += rating;
+          periods[key].ratingCount++;
+        }
+      });
+
+
+      const sortedPeriods =
+        Object.keys(periods).sort();
+
+
+      if (sortedPeriods.length === 0) {
         document.getElementById('chart_div').innerHTML = `
-          <div style="color: var(--text-muted); font-size: 0.95rem;">
-            Nenhum registro correspondente no período selecionado.
+          <div style="
+            color: var(--text-muted);
+            font-size: 0.95rem;
+          ">
+            Nenhum registro encontrado para os filtros selecionados.
           </div>
         `;
+
         return;
       }
 
-      // Prepare Google Charts DataTable structure
-      const gData = new google.visualization.DataTable();
-      gData.addColumn('string', 'Mês');
-      activeSectors.forEach(sec => gData.addColumn('number', sec));
-      gData.addColumn('number', 'Média Geral');
 
-      // Populate row data
-      monthKeys.forEach(mKey => {
-        const mLabel = monthsMap[mKey];
-        
-        // Filter visits in this specific month
-        const mVisits = filtered.filter(v => {
-          const parts = v.dia.split('/');
-          return parts[1] === mKey;
-        });
+      // ===============================
+      // GOOGLE CHART
+      // ===============================
 
-        if (mVisits.length === 0) return; // Skip months with zero visits
+      const gData =
+        new google.visualization.DataTable();
 
-        // Calculate averages for each active sector in this month
-        const sectorScores = activeSectors.map(sec => {
-          const secVisits = mVisits.filter(v => v.setor === sec);
-          if (secVisits.length === 0) return null; // Null means no bar will render
-          
-          const sumSec = secVisits.reduce((a, b) => a + parseFloat(b.avaliacao || 0), 0);
-          return parseFloat((sumSec / secVisits.length).toFixed(1));
-        });
 
-        // Calculate overall average for this month
-        const validScores = sectorScores.filter(v => v !== null);
-        const overallAvg = validScores.length > 0 
-          ? parseFloat((validScores.reduce((a, b) => a + b, 0) / validScores.length).toFixed(1))
-          : 0;
+      gData.addColumn(
+        'string',
+        'Período'
+      );
 
-        gData.addRow([mLabel, ...sectorScores, overallAvg]);
+      gData.addColumn(
+        'number',
+        'Atendimentos'
+      );
+
+      gData.addColumn(
+        'number',
+        'Média de satisfação'
+      );
+
+
+      sortedPeriods.forEach(key => {
+        const [year, month] = key.split('-');
+
+        const data = periods[key];
+
+        const label =
+          `${monthsMap[month]}/${year.slice(-2)}`;
+
+
+        const average =
+          data.ratingCount > 0
+            ? Number(
+                (
+                  data.sumRatings /
+                  data.ratingCount
+                ).toFixed(1)
+              )
+            : null;
+
+
+        gData.addRow([
+          label,
+          data.visits,
+          average
+        ]);
       });
 
-      if (gData.getNumberOfRows() === 0) {
-        document.getElementById('chart_div').innerHTML = `
-          <div style="color: var(--text-muted); font-size: 0.95rem;">
-            Não há registros de avaliações correspondentes para plotar no gráfico.
-          </div>
-        `;
-        return;
-      }
-
-      // Modern Color Palette configuration (Green, Amber, Blue, Slate, Purple)
-      const colors = ['#0f7d3a', '#2563eb', '#9333ea', '#db2777', '#0d9488', '#4f46e5', '#ca8a04', '#e11d48'];
-      
-      // Map columns to colors + make the last column (Média Geral) a neat Trend Line
-      const seriesConf = {};
-      activeSectors.forEach((_, idx) => {
-        seriesConf[idx] = { color: colors[idx % colors.length] };
-      });
-      // The overall average column (idx = activeSectors.length) is configured as a line
-      seriesConf[activeSectors.length] = { 
-        type: 'line', 
-        color: '#d97706', // Gold trend line
-        lineWidth: 3, 
-        pointSize: 8 
-      };
 
       const options = {
-        title: 'Média de Avaliações por Setor e Mês (0-5)',
-        chartArea: { left: '8%', top: '12%', width: '84%', height: '70%' },
+
+        title:
+          sectorFilter
+            ? `Evolução de Atendimentos — ${sectorFilter}`
+            : 'Evolução Geral de Atendimentos',
+
         fontName: 'Poppins',
-        fontSize: 12,
-        colors: colors,
-        vAxis: { 
-          title: 'Nota de Avaliação', 
-          minValue: 0, 
-          maxValue: 5, 
-          viewWindow: { min: 0, max: 5 },
-          gridlines: { count: 6 },
-          textStyle: { color: '#475569', fontSize: 11 }
+
+        chartArea: {
+          left: '7%',
+          top: '15%',
+          width: '84%',
+          height: '67%'
         },
-        hAxis: { 
-          title: 'Período Mensal',
-          textStyle: { color: '#475569', fontSize: 11 }
+
+
+        // Coluna + linha
+        seriesType: 'bars',
+
+        series: {
+
+          0: {
+            type: 'bars',
+            targetAxisIndex: 0
+          },
+
+          1: {
+            type: 'line',
+            targetAxisIndex: 1,
+            lineWidth: 3,
+            pointSize: 7
+          }
+
         },
-        series: seriesConf,
-        legend: { position: 'bottom', textStyle: { color: '#1e293b', fontSize: 11 } },
-        backgroundColor: { fill:'transparent' },
+
+
+        vAxes: {
+
+          0: {
+            title: 'Atendimentos',
+            minValue: 0,
+            format: '0'
+          },
+
+          1: {
+            title: 'Média de satisfação',
+            viewWindow: {
+              min: 0,
+              max: 5
+            },
+            ticks: [0, 1, 2, 3, 4, 5]
+          }
+
+        },
+
+
+        hAxis: {
+          title: 'Período (Mês/Ano)'
+        },
+
+
+        legend: {
+          position: 'bottom'
+        },
+
+
+        backgroundColor: {
+          fill: 'transparent'
+        },
+
+
         animation: {
           duration: 400,
           easing: 'out',
           startup: true
-        },
-        tooltip: { textStyle: { fontName: 'Poppins', fontSize: 12 } }
+        }
       };
 
-      const chartContainer = document.getElementById('chart_div');
-      chartContainer.innerHTML = ""; // Clear loader text
-      
-      const chart = new google.visualization.ColumnChart(chartContainer);
+
+      const chartContainer =
+        document.getElementById('chart_div');
+
+      chartContainer.innerHTML = "";
+
+
+      const chart =
+        new google.visualization.ComboChart(
+          chartContainer
+        );
+
       chart.draw(gData, options);
     }
   </script>

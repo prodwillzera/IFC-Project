@@ -49,6 +49,10 @@
 
         <!-- Dynamic Filters Bar -->
         <div class="chart-filters">
+          <select id="filter-year">
+            <option value="">Todos os Anos</option>
+          </select>
+
           <select id="filter-month">
             <option value="">Todos os Meses</option>
             <option value="01">Janeiro</option>
@@ -108,11 +112,11 @@
       <nav class="navbar">
         <ul class="nav-list">
           <li><a href="#" onclick="alert('Suporte IFC: ti.fraiburgo@ifc.edu.br')">Contato</a></li>
-          <li><a href="#" onclick="alert('FAQ: Sistema de Recepção IFC v1.0 MVP')">FAQ</a></li>
-          <li><a href="#" onclick="alert('Sistema Desenvolvido para a MICTI - IFC Fraiburgo.')">Sobre o Sistema</a></li>
+          <li><a href="https://github.com/prodwillzera/IFC-Project" target="_blank" rel="noopener noreferrer">FAQ</a></li>
+          <li><a href="https://github.com/prodwillzera/IFC-Project" target="_blank" rel="noopener noreferrer">Sobre o Sistema</a></li>
         </ul>
       </nav>
-      <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
+      <p class="footer1">&copy; 2026 Instituto Federal Catarinense & William Lopes Batista. Todos os direitos reservados.</p>
     </footer>
   </div>
 
@@ -145,7 +149,11 @@
         if (!response.ok) throw new Error("Falha ao obter registros.");
         rawVisitsData = await response.json();
 
+        // Populate dynamic Year filter options based on available data
+        populateYearFilter();
+
         // Listeners for filters to trigger instant re-draw
+        document.getElementById("filter-year").addEventListener("change", processAndDraw);
         document.getElementById("filter-month").addEventListener("change", processAndDraw);
         document.getElementById("chart-type-selector").addEventListener("change", processAndDraw);
 
@@ -160,19 +168,49 @@
       }
     }
 
+    function populateYearFilter() {
+      const yearSelect = document.getElementById("filter-year");
+      if (!yearSelect) return;
+
+      const years = new Set();
+      rawVisitsData.forEach(item => {
+        if (item.dia) {
+          const parts = item.dia.split('/');
+          if (parts.length === 3 && parts[2]) {
+            years.add(parts[2].trim());
+          }
+        }
+      });
+
+      const sortedYears = Array.from(years).sort();
+      // Keep "Todos os Anos" as first option
+      yearSelect.innerHTML = '<option value="">Todos os Anos</option>';
+      sortedYears.forEach(year => {
+        const opt = document.createElement("option");
+        opt.value = year;
+        opt.textContent = year;
+        yearSelect.appendChild(opt);
+      });
+    }
+
     function processAndDraw() {
+      const yearFilter = document.getElementById("filter-year")?.value || "";
       const monthFilter = document.getElementById("filter-month").value;
       const chartType = document.getElementById("chart-type-selector").value;
 
-      // 1. Filter raw visits based on month
+      // 1. Filter raw visits based on year and month independently
       const filtered = rawVisitsData.filter(item => {
         if (!item.dia) return false;
         
-        // Parse month (DD/MM/YYYY -> parts[1])
+        // Parse date (DD/MM/YYYY -> parts[1] is Month, parts[2] is Year)
         const parts = item.dia.split('/');
-        const itemMonth = parts[1]; // "05", "11", etc.
+        const itemMonth = parts[1]; // "05", "07", etc.
+        const itemYear = parts[2] ? parts[2].trim() : "";
 
-        return !monthFilter || itemMonth === monthFilter;
+        const matchesYear = !yearFilter || itemYear === yearFilter;
+        const matchesMonth = !monthFilter || itemMonth === monthFilter;
+
+        return matchesYear && matchesMonth;
       });
 
       // 2. Perform stats calculations per sector
@@ -185,13 +223,19 @@
         const score = parseFloat(item.avaliacao);
 
         if (!sectorsMap[sector]) {
-          sectorsMap[sector] = { count: 0, sumScores: 0 };
+          sectorsMap[sector] = {
+            count: 0,
+            sumScores: 0,
+            scoreCount: 0
+          };
         }
 
         sectorsMap[sector].count++;
 
-        if (!isNaN(score) && score > 0) {
+        if (!isNaN(score) && score >= 1 && score <= 5) {
           sectorsMap[sector].sumScores += score;
+          sectorsMap[sector].scoreCount++;
+
           globalSum += score;
           globalCount++;
         }
@@ -213,8 +257,10 @@
         }
 
         // Check average rating
-        const avg = data.count > 0 ? (data.sumScores / data.count) : 0;
-        if (avg > bestAvgScore) {
+        const avg = data.scoreCount > 0
+          ? (data.sumScores / data.scoreCount)
+          : null;
+        if (avg !== null && avg > bestAvgScore) {
           bestAvgScore = avg;
           bestRatedSector = sector;
         }
@@ -278,9 +324,14 @@
         gData.addColumn({ type: 'string', role: 'style' });
 
         sectorNames.forEach((name, idx) => {
-          const avgScore = sectorsMap[name].count > 0 
-            ? parseFloat((sectorsMap[name].sumScores / sectorsMap[name].count).toFixed(1))
-            : 0;
+          const avgScore = sectorsMap[name].scoreCount > 0
+            ? parseFloat(
+                (
+                  sectorsMap[name].sumScores /
+                  sectorsMap[name].scoreCount
+                ).toFixed(1)
+              )
+            : null;
           gData.addRow([name, avgScore, `color: ${colors[idx % colors.length]}`]);
         });
 

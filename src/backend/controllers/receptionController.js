@@ -29,7 +29,12 @@ async function syncGraphData() {
     const anonymousData = allVisits.map(visit => ({
       dia: visit.dia,
       setor: visit.setor,
-      avaliacao: parseInt(visit.avaliacao) || 5
+      avaliacao:
+        visit.avaliacao === null ||
+        visit.avaliacao === undefined ||
+        visit.avaliacao === ''
+            ? null
+            : parseInt(visit.avaliacao)
     }));
     saveGraphData(anonymousData);
   } catch (err) {
@@ -149,7 +154,12 @@ export class ReceptionController {
       const graphData = allVisits.map(visit => ({
         dia: visit.dia,
         setor: visit.setor,
-        avaliacao: parseInt(visit.avaliacao) || 5
+        avaliacao:
+          visit.avaliacao === null ||
+          visit.avaliacao === undefined ||
+          visit.avaliacao === ''
+            ? null
+            : parseInt(visit.avaliacao)
       }));
       saveGraphData(graphData);
       res.json(graphData);

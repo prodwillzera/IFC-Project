@@ -226,6 +226,8 @@ body.register{
   width: 180px;
   height: auto;
   margin-bottom: 24px;
+  border-radius: var(--radius-sm);
+  /*border: 1px solid black;*/
 }
 
 .index .left-side h1,

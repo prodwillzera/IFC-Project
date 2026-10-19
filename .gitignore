@@ -18,3 +18,35 @@ Thumbs.db
 
 # VS Code (opcional)
 .vscode/
+
+# Dados gerados e bancos locais
+/data/
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+*.db-wal
+*.db-shm
+
+# Configurações locais (somente o exemplo é público)
+.env.*
+!.env.example
+
+# Dumps e backups locais; schema.sql contém apenas estrutura
+backups/
+backup/
+dumps/
+dump/
+*.bak
+*.backup
+*.dump
+*.sql
+*.sql.gz
+*.sql.zip
+*.sql.7z
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+!/database/schema.sql

@@ -2,8 +2,43 @@ import { validateData, validateID, validateHour } from './modules/validation.js'
 import { applyMask } from './modules/mask.js';
 import { checkAuth, getLoggedUser, logout } from './modules/auth.js';
 import { Toast } from './modules/toast.js';
+import { SETORES } from './modules/sectors.js';
+
+function preencherSetores() {
+  const selects = [
+    {
+      id: "input-sector",
+      primeiraOpcao: "Selecione o Setor"
+    },
+    {
+      id: "filter-sector",
+      primeiraOpcao: "Todos os Setores"
+    },
+    {
+      id: "edit-sector",
+      primeiraOpcao: "Selecione o Setor"
+    }
+  ];
+
+  selects.forEach(({ id, primeiraOpcao }) => {
+    const select = document.getElementById(id);
+
+    if (!select) return;
+
+    select.innerHTML = `<option value="">${primeiraOpcao}</option>`;
+
+    SETORES.forEach(setor => {
+      const option = document.createElement("option");
+      option.value = setor;
+      option.textContent = setor;
+      select.appendChild(option);
+    });
+  });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  preencherSetores();
 
   checkAuth();
 
@@ -145,8 +180,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const tr = document.createElement("tr");
       tr.id = `row-${item.id}`;
 
-      const rating = parseInt(item.avaliacao) || 5;
-      const scoreBadge = `<span class="rating-badge rating-${rating}">${rating}</span>`;
+      const hasRating =
+        item.avaliacao !== null &&
+        item.avaliacao !== undefined &&
+        item.avaliacao !== '';
+
+      const rating = hasRating ? parseInt(item.avaliacao) : null;
+
+      const scoreBadge = hasRating
+        ? `<span class="rating-badge rating-${rating}">${rating}</span>`
+        : `<span style="color: var(--text-muted);">—</span>`;
       
       const nameDisp = item.nome.length > 25 ? item.nome.slice(0, 25) + "..." : item.nome;
       const whyDisp = item.motivo.length > 25 ? item.motivo.slice(0, 25) + "..." : item.motivo;
@@ -160,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
       tr.innerHTML = `
         <td style="font-family: 'JetBrains Mono', monospace; font-weight:500;">${item.dia}</td>
         <td style="font-weight:600; color: var(--text-main);">${nameDisp}</td>
-        <td style="font-family: 'JetBrains Mono', monospace;">${item.cpf}</td>
+        <td style="font-family: 'JetBrains Mono', monospace;">${item.cpf ?? ""}</td>
         <td><span style="font-weight:500; color: var(--primary); background-color: var(--primary-light); padding: 4px 8px; border-radius:4px;">${item.setor}</span></td>
         <td>${whyDisp}</td>
         <td>${statusHtml}</td>
@@ -223,7 +266,12 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("detail-entry").textContent = data.entrada;
       document.getElementById("detail-exit").textContent = data.saida;
       document.getElementById("detail-status").textContent = data.status || "Concluído";
-      document.getElementById("detail-score").textContent = `${data.avaliacao} ★`;
+      document.getElementById("detail-score").textContent =
+        data.avaliacao === null ||
+        data.avaliacao === undefined ||
+        data.avaliacao === ''
+          ? "Sem avaliação"
+          : `${data.avaliacao} ★`;
       document.getElementById("detail-notes").textContent = data.observacoes || "Sem observações adicionais.";
 
       openModal("modal-view");
@@ -651,8 +699,8 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("keypress", (e) => {
     sequence += e.key.toLowerCase();
     const codes = {
-      cogu: () => console.log("%cCogumelo_Seco mestre do xanascript", "color: #0f7d3a; font-weight: bold; font-size: 14px;"),
-      guto: () => console.log("%cVocê citou o nome proibido, agora morra", "color: #dc2626; font-weight: bold; font-size: 14px;"),
+      cogu: () => console.log("%cCogumelo_Seco mestre do JS", "color: #0f7d3a; font-weight: bold; font-size: 14px;"),
+      guto: () => console.log("%cHOMEM VERDE, sapo magico", "color: #dc2626; font-weight: bold; font-size: 14px;"),
       tuki: () => console.log("%cMultiprofissional e usuario de brave +100 aura", "color: #d97706; font-weight: bold; font-size: 14px;"),
       biruta: () => console.log("%cRei do frontend, leao da GC", "color: #2563eb; font-weight: bold; font-size: 14px;")
     };

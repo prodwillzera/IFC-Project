@@ -68,17 +68,7 @@
             </div>
             <div class="input-box">
               <label for="input-sector">Setor de Destino *</label>
-              <select id="input-sector" required>
-                <option value="">Selecione o Setor</option>
-                <option value="TI">TI (Tecnologia da Informação)</option>
-                <option value="SISAE">SISAE</option>
-                <option value="Almoxarifado">Almoxarifado</option>
-                <option value="Cantina">Cantina</option>
-                <option value="Financeiro">Financeiro</option>
-                <option value="Direção">Direção Geral</option>
-                <option value="Secretaria">Secretaria</option>
-                <option value="Biblioteca">Biblioteca</option>
-              </select>
+              <select id="input-sector" required></select>
             </div>
             <div class="input-box" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
               <div>
@@ -91,13 +81,14 @@
               </div>
             </div>
             <div class="input-box">
-              <label for="input-score">Avaliação do Atendimento (1-5) *</label>
-              <select id="input-score" required>
-                <option value="5">5 ★ Excelente</option>
-                <option value="4">4 ★ Muito Bom</option>
-                <option value="3">3 ★ Regular</option>
-                <option value="2">2 ★ Ruim</option>
-                <option value="1">1 ★ Insatisfatório</option>
+              <label for="input-score">Avaliação do Atendimento (opcional)</label>
+              <select id="input-score">
+                  <option value="">Sem avaliação</option>
+                  <option value="5">5 ★ Excelente</option>
+                  <option value="4">4 ★ Muito Bom</option>
+                  <option value="3">3 ★ Regular</option>
+                  <option value="2">2 ★ Ruim</option>
+                  <option value="1">1 ★ Insatisfeito</option>
               </select>
             </div>
 
@@ -148,17 +139,7 @@
             </div>
             
             <div class="filter-group">
-              <select id="filter-sector">
-                <option value="">Todos os Setores</option>
-                <option value="TI">TI</option>
-                <option value="SISAE">SISAE</option>
-                <option value="Almoxarifado">Almoxarifado</option>
-                <option value="Cantina">Cantina</option>
-                <option value="Financeiro">Financeiro</option>
-                <option value="Direção">Direção Geral</option>
-                <option value="Secretaria">Secretaria</option>
-                <option value="Biblioteca">Biblioteca</option>
-              </select>
+              <select id="filter-sector"></select>
 
               <select id="filter-score">
                 <option value="">Todas as Notas</option>
@@ -223,11 +204,11 @@
       <nav class="navbar">
         <ul class="nav-list">
           <li><a href="#" onclick="alert('Suporte IFC: ti.fraiburgo@ifc.edu.br')">Contato</a></li>
-          <li><a href="#" onclick="alert('FAQ: Sistema de Recepção IFC v1.0 MVP')">FAQ</a></li>
-          <li><a href="#" onclick="alert('Sistema Desenvolvido para a MICTI - IFC Fraiburgo.')">Sobre o Sistema</a></li>
+          <li><a href="https://github.com/prodwillzera/IFC-Project" target="_blank" rel="noopener noreferrer">FAQ</a></li>
+          <li><a href="https://github.com/prodwillzera/IFC-Project" target="_blank" rel="noopener noreferrer">Sobre o Sistema</a></li>
         </ul>
       </nav>
-      <p class="footer1">&copy; 2026 Instituto Federal Catarinense. Todos os direitos reservados.</p>
+      <p class="footer1">&copy; 2026 Instituto Federal Catarinense & William Lopes Batista. Todos os direitos reservados.</p>
     </footer>
   </div>
 
@@ -340,16 +321,7 @@
           </div>
           <div class="input-box">
             <label for="edit-sector">Setor de Destino *</label>
-            <select id="edit-sector" required>
-              <option value="TI">TI</option>
-              <option value="SISAE">SISAE</option>
-              <option value="Almoxarifado">Almoxarifado</option>
-              <option value="Cantina">Cantina</option>
-              <option value="Financeiro">Financeiro</option>
-              <option value="Direção">Direção Geral</option>
-              <option value="Secretaria">Secretaria</option>
-              <option value="Biblioteca">Biblioteca</option>
-            </select>
+            <select id="edit-sector" required></select>
           </div>
           <div class="input-box">
             <label for="edit-entry">Hora Entrada *</label>
@@ -361,12 +333,13 @@
           </div>
           <div class="input-box">
             <label for="edit-score">Avaliação (1-5) *</label>
-            <select id="edit-score" required>
-              <option value="5">5 ★ Excelente</option>
-              <option value="4">4 ★ Muito Bom</option>
-              <option value="3">3 ★ Regular</option>
-              <option value="2">2 ★ Ruim</option>
-              <option value="1">1 ★ Insatisfatório</option>
+            <select id="edit-score">
+                <option value="">Sem avaliação</option>
+                <option value="5">5 ★ Excelente</option>
+                <option value="4">4 ★ Muito Bom</option>
+                <option value="3">3 ★ Regular</option>
+                <option value="2">2 ★ Ruim</option>
+                <option value="1">1 ★ Insatisfatório</option>
             </select>
           </div>
           <div class="input-box">

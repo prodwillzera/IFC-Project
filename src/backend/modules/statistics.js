@@ -14,59 +14,61 @@ function generateGraphData(receptionData) {
       return;
     }
 
-    const parts =
-      item.dia.split("/");
-
-    const month =
-      months[
-      parseInt(parts[1]) - 1
-      ];
-
-    const sector = item.setor;
-
-    const score =
-      Number(item.avaliacao);
-
-
-    let monthData =
-      result.find(
-        data => data.mes === month
-      );
-
-
-    if (!monthData) {
-
-      monthData = {
-        mes: month
-      };
-
-      result.push(monthData);
+    const parts = item.dia.split("/");
+    if (parts.length < 3) {
+      return;
     }
 
+    const monthNum = parseInt(parts[1], 10);
+    const year = parts[2] ? parts[2].trim() : "";
+    if (isNaN(monthNum) || monthNum < 1 || monthNum > 12 || !year) {
+      return;
+    }
 
-    if (!monthData[sector]) {
+    const monthName = months[monthNum - 1];
+    const monthKey = `${year}-${String(monthNum).padStart(2, "0")}`; // e.g. "2025-07"
+    const monthLabel = `${monthName}/${year.slice(-2)}`; // e.g. "jul/25"
 
-      monthData[sector] = {
+    const sector = item.setor;
+    const score = Number(item.avaliacao);
+
+    let periodData = result.find(
+      data => data.periodo === monthKey
+    );
+
+    if (!periodData) {
+      periodData = {
+        periodo: monthKey,
+        ano: year,
+        mes: monthName,
+        mesNumero: String(monthNum).padStart(2, "0"),
+        label: monthLabel
+      };
+
+      result.push(periodData);
+    }
+
+    if (!periodData[sector]) {
+      periodData[sector] = {
         total: 0,
         count: 0
       };
     }
 
-
-    monthData[sector].total += score;
-
-    monthData[sector].count++;
+    periodData[sector].total += score;
+    periodData[sector].count++;
   });
 
-  result.forEach(month => {
+  // Pode escolher todos os anos ou ano por ano
+  result.sort((a, b) => a.periodo.localeCompare(b.periodo));
 
-    Object.keys(month).forEach(key => {
+  const nonSectorKeys = new Set(["periodo", "ano", "mes", "mesNumero", "label"]);
 
-      if (key !== "mes") {
-
-        const sector = month[key];
-
-        month[key] = Number(
+  result.forEach(period => {
+    Object.keys(period).forEach(key => {
+      if (!nonSectorKeys.has(key)) {
+        const sector = period[key];
+        period[key] = Number(
           (
             sector.total /
             sector.count
