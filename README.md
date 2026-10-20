@@ -108,4 +108,4 @@ O schema mantém os formatos usados pela aplicação (data da visita e horários
 
 ### Arquivos locais fora do Git
 
-.env, data/, bancos SQLite, dumps e backups são ignorados. Somente .env.example e database/schema.sql devem ser compartilhados como configuração e estrutura. Não use git add -f para incluir arquivos locais. Revise git status e os arquivos preparados antes de cada commit. Essas regras não apagam dados de commits antigos.
+.env, data/, bancos SQL, dumps e backups são ignorados. Somente .env.example e database/schema.sql devem ser compartilhados como configuração e estrutura. Não use git add -f para incluir arquivos locais. Revise git status e os arquivos preparados antes de cada commit. Essas regras não apagam dados de commits antigos.
